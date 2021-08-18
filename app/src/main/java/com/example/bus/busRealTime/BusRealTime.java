@@ -1,31 +1,36 @@
 package com.example.bus.busRealTime;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bus.BusRealTimeDialogFragment;
-import com.example.bus.Dialog;
-import com.example.bus.MainActivity;
+import com.example.bus.DialogFragment;
 import com.example.bus.R;
 import com.example.bus.RouteData;
+import com.example.bus.RouteDataSource;
+import com.example.bus.RouteEntity;
+import com.example.bus.busCrossStation.BusCrossStation;
+import com.example.bus.busStartTime.BusStartTime;
 import com.example.bus.searchBusStation.SearchAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * 公車動態
- * */
-public class BusRealTime extends AppCompatActivity implements  BusRealTimeContract{
+ */
+public class BusRealTime extends AppCompatActivity implements BusRealTimeContract {
 
     private RecyclerView busRealRecycle;
     TextView text;
+    DialogFragment dialogFragment;
+
     private List<RouteData> getLabels() {
         List<RouteData> labels = new ArrayList<>();
         RouteData label1 = new RouteData();
@@ -64,7 +69,7 @@ public class BusRealTime extends AppCompatActivity implements  BusRealTimeContra
         label10.setGPSTime(14);
 
         label10.setStopName("中原公");
-        RouteData label11= new RouteData();
+        RouteData label11 = new RouteData();
         label11.setGPSTime(5);
 
         label11.setStopName("中原公園");
@@ -113,7 +118,7 @@ public class BusRealTime extends AppCompatActivity implements  BusRealTimeContra
         label101.setGPSTime(14);
 
         label101.setStopName("中原公");
-        RouteData label112= new RouteData();
+        RouteData label112 = new RouteData();
         label112.setGPSTime(5);
 
         label112.setStopName("中原公園");
@@ -154,8 +159,6 @@ public class BusRealTime extends AppCompatActivity implements  BusRealTimeContra
         label220.setGPSTime(5);
 
 
-
-
         labels.add(label220);
         labels.add(label129);
         labels.add(label128);
@@ -169,7 +172,6 @@ public class BusRealTime extends AppCompatActivity implements  BusRealTimeContra
         labels.add(label123);
         labels.add(label101);
         labels.add(label91);
-
 
 
         labels.add(label1);
@@ -194,7 +196,6 @@ public class BusRealTime extends AppCompatActivity implements  BusRealTimeContra
         labels.add(label20);
 
 
-
         return labels;
     }
 
@@ -203,16 +204,16 @@ public class BusRealTime extends AppCompatActivity implements  BusRealTimeContra
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.busrealtime);
-        busRealRecycle=findViewById(R.id.busreal);
+        busRealRecycle = findViewById(R.id.busreal);
+        dialogFragment = new DialogFragment();
         showRealtime();
     }
-
 
 
     @Override
     public void showRoute() {//顯示路線名稱
 
-        text=findViewById(R.id.routename);
+        text = findViewById(R.id.routename);
         text.setText("221");
         showRealtime();
 
@@ -220,10 +221,28 @@ public class BusRealTime extends AppCompatActivity implements  BusRealTimeContra
 
     @Override
     public void showRealtime() { //顯示路線的時間和站牌
-        busRealRecycle.setAdapter(new BusRealTimeAdapter(this,getLabels(),()->
-                new Dialog()
-                        .show(getSupportFragmentManager(),"Dialog")
+
+        //做dialog的畫面轉跳
+        dialogFragment.setOnItemClickListener(new DialogFragment.onItemClickListener() { //丟事情(就是下面包的東西)給listener做
+            //跳畫面到發車時刻
+            public void onClickstarttime(View view, final int position) {
+                startActivity(new Intent(BusRealTime.this, BusStartTime.class));
+            }
+
+
+            //跳畫面到經此站的公車
+            public void onClickscrossbus(View view, final int position) {
+                startActivity(new Intent(BusRealTime.this, BusCrossStation.class));
+            }
+
+        });
+
+
+        busRealRecycle.setAdapter(new BusRealTimeAdapter(this, getLabels(), () ->
+                dialogFragment
+                        .show(getSupportFragmentManager(), "DialogFragment")
         ));
+
 
         busRealRecycle.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 

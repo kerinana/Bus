@@ -2,23 +2,17 @@ package com.example.bus.searchBusStation;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bus.Like;
 import com.example.bus.R;
 import com.example.bus.RouteData;
-import com.example.bus.busRealTime.BusRealTime;
 
 import java.util.List;
 

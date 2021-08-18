@@ -2,7 +2,7 @@ package com.example.bus;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Response{
+public class RouteEntity {
 
 	@SerializedName("GPSTime")
 	private String gPSTime;
@@ -54,6 +54,12 @@ public class Response{
 
 	@SerializedName("BusStatus")
 	private int busStatus;
+
+	@SerializedName("DepartureStopNameZh")
+	private String departureStopNameZh;
+
+	@SerializedName("DestinationStopNameZh")
+	private String destinationStopNameZh;
 
 	public String getGPSTime(){
 		return gPSTime;
@@ -121,5 +127,21 @@ public class Response{
 
 	public int getBusStatus(){
 		return busStatus;
+	}
+
+	public String getDepartureStopNameZh() {
+		return departureStopNameZh;
+	}
+
+	public void setDepartureStopNameZh(String departureStopNameZh) {
+		this.departureStopNameZh = departureStopNameZh;
+	}
+
+	public String getDestinationStopNameZh() {
+		return destinationStopNameZh;
+	}
+
+	public void setDestinationStopNameZh(String destinationStopNameZh) {
+		this.destinationStopNameZh = destinationStopNameZh;
 	}
 }

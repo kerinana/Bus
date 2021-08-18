@@ -12,6 +12,8 @@
         <entry key="app/src/main/res/drawable/shap.xml" value="0.2328125" />
         <entry key="app/src/main/res/drawable/textview_border.xml" value="0.2328125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33242753623188404" />
+        <entry key="app/src/main/res/layout/buscrossatation.xml" value="0.23125" />
+        <entry key="app/src/main/res/layout/buscrossstationlist.xml" value="0.375" />
         <entry key="app/src/main/res/layout/busrealtime.xml" value="0.25" />
         <entry key="app/src/main/res/layout/busrealtimelist.xml" value="0.375" />
         <entry key="app/src/main/res/layout/dialoglist.xml" value="0.2125" />

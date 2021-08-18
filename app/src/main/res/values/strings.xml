@@ -19,4 +19,5 @@
     <string name="cancel">取消</string>
     <string name="goroute">回程</string>
     <string name="backroute">去程</string>
+    <string name="stationname">站牌</string>
 </resources>

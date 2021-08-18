@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bus.R;
 import com.example.bus.RouteData;
+import com.example.bus.RouteDataSource;
+import com.example.bus.RouteEntity;
 import com.example.bus.busRealTime.BusRealTime;
 import com.example.bus.searchBusStation.SearchAdapter;
 import com.example.bus.searchBusStation.SearchBusStation;
@@ -32,7 +34,17 @@ public class HeadActivity extends AppCompatActivity implements HeadContract{
         label1.setDestinationStopNameZh("北車");
         label1.setRouteName("221");
         labels.add(label1);
-
+        //用資料
+//        RouteDataSource dataSource = new RouteDataSource();
+//        for (RouteEntity entity : dataSource.getRouteEntityList()) {
+//            RouteData label1 = new RouteData();
+//            label1.setRouteID(entity.getRouteID());
+//            label1.setDepartureStopNameZh(entity.getDepartureStopNameZh());
+//            label1.setDestinationStopNameZh(entity.getDestinationStopNameZh());
+////            label1.setRouteName(entity.getSubRouteName().getZhTw());
+//            label1.setStopName("中原公園");
+//            labels.add(label1);
+//        }
         return labels;
     }
 
