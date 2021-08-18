@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Bus</string>
+    <string name="tosearchnearstationbutton">搜尋附近站牌</string>
+    <string name="tosearchstationbutton">搜尋站牌</string>
+    <string name="search_title">搜尋標題</string>
+    <string name="search_hint">提示</string>
+    <string name="like">我的最愛</string>
+    <string name="routename">公車號碼</string>
+    <string name="startstation">起站</string>
+    <string name="endstation">尾站</string>
+    <string name="dash">-</string>
+    <string name="realtimetitle">公車動態</string>
+    <string name="rountename">公車號碼</string>
+    <string name="realtime">即時時間</string>
+    <string name="rountename2">站名</string>
+    <string name="starttime">發車時刻</string>
+    <string name="nearbusstation">經此站的公車</string>
+    <string name="alert">到站提醒</string>
+    <string name="cancel">取消</string>
+    <string name="goroute">回程</string>
+    <string name="backroute">去程</string>
+</resources>

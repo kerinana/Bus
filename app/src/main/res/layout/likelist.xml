@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="113dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:background="@drawable/border"
+    app:layout_constraintVertical_bias="0.0">
+
+    <TextView
+        android:id="@+id/routename"
+        android:layout_width="211dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/textview_border"
+        android:gravity="center"
+        android:text="@string/routename"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/startstation"
+        android:layout_width="82dp"
+        android:layout_height="38dp"
+        android:background="@drawable/textview_border"
+        android:gravity="center"
+        android:text="@string/startstation"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/routename"
+        app:layout_constraintTop_toBottomOf="@+id/routename"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="48dp"
+        android:layout_height="38dp"
+        android:gravity="center"
+        android:text="@string/dash"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/endstation"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/startstation"
+        app:layout_constraintTop_toBottomOf="@+id/routename"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/endstation"
+        android:layout_width="82dp"
+        android:layout_height="38dp"
+        android:background="@drawable/textview_border"
+        android:gravity="center"
+        android:text="@string/endstation"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/routename"
+        app:layout_constraintTop_toBottomOf="@+id/routename"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="62dp"
+        android:layout_height="55dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.239"
+        app:layout_constraintStart_toEndOf="@+id/routename"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.636"
+        app:srcCompat="@android:drawable/btn_star_big_off" />
+
+
+    <!--        <selector xmlns:android="http://schemas.android.com/apk/res/android">-->
+    <!--        </selector>-->
+
+
+    <!--        <selector xmlns:android="http://schemas.android.com/apk/res/android">-->
+    <!--            <item android:drawable="@android:drawable/btn_star_big_on"></item>-->
+    <!--            <item android:drawable="@android:drawable/btn_star_big_off"-->
+    <!--                android:state_pressed="true"></item>-->
+    <!--        </selector>-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
