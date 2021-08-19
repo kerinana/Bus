@@ -41,6 +41,9 @@
             android:name=".busCrossStation.BusCrossStation"
             android:exported="true">
         </activity>
+
+
+
     </application>
 
 </manifest>

@@ -1,8 +1,8 @@
-package com.example.bus;
+package com.example.bus.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RouteName{
+public class SubRouteName{
 
 	@SerializedName("Zh_tw")
 	private String zhTw;

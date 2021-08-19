@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/pop_layout"
         android:layout_width="406dp"
         android:layout_height="331dp"
         android:orientation="vertical"
@@ -18,33 +19,43 @@
         app:layout_constraintVertical_bias="0.005">
 
         <Button
-            android:id="@+id/button2"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
+            android:id="@+id/three"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="發車時刻" />
+            android:layout_marginTop="20dip"
+            android:text="3分鐘"
+            android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button3"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
+            android:id="@+id/five"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="經此站的公車" />
+            android:layout_marginTop="5dip"
+            android:text="5分鐘"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/seven"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:text="7分鐘"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/eleven"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:text="11分鐘"
+            android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button4"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="到站提醒" />
-
-        <Button
-            android:id="@+id/cancel"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
+            android:id="@+id/btn_cancel"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dip"
             android:layout_marginBottom="15dip"
-            android:text="@string/cancel" />
+            android:text="取消"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,6 +25,8 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
     public interface onItemClickListener {
         void onClickstarttime(View view, int position);
         void onClickscrossbus(View view, int position);
+        void onClickschedule(View view, int position);
+
     }
     public void setOnItemClickListener(DialogFragment.onItemClickListener listener) {
         this.clickListener = listener;
@@ -69,8 +71,7 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
         alert.setOnClickListener(new View.OnClickListener() {//到站提醒
             @Override
             public void onClick(View view) {
-                //Intent intent=inflater.inflate(Dialog.this,)
-
+                clickListener.onClickschedule(view,position);
             }
         });
 

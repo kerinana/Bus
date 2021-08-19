@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bus.R;
 import com.example.bus.RouteData;
 import com.example.bus.busRealTime.BusRealTime;
+import com.example.bus.model.RouteDataSource;
+import com.example.bus.model.RouteEntity;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -34,13 +36,22 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
 
     private List<RouteData> getLabels() {
         List<RouteData> labels = new ArrayList<>();
+//        RouteDataSource dataSource =new RouteDataSource();
+//        for(RouteEntity entity:dataSource.getRouteEntityList()){
+//           // if(entity.getRouteName().getZhTw().equals()){
+//                RouteData label1 = new RouteData();
+//                label1.getRouteName();
+//           // }
+//
+//
+//        }
+
         RouteData label1 = new RouteData();
         label1.setRouteID("1");
         label1.setDepartureStopNameZh("蘆洲");
         label1.setDestinationStopNameZh("北車");
         label1.setRouteName("221");
         labels.add(label1);
-
         return labels;
     }
 

@@ -13,11 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bus.DialogFragment;
 import com.example.bus.R;
 import com.example.bus.RouteData;
-import com.example.bus.RouteDataSource;
-import com.example.bus.RouteEntity;
 import com.example.bus.busCrossStation.BusCrossStation;
+import com.example.bus.busCrossStation.busSchedule.BusScheduleDialogFragment;
 import com.example.bus.busStartTime.BusStartTime;
-import com.example.bus.searchBusStation.SearchAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +28,7 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
     private RecyclerView busRealRecycle;
     TextView text;
     DialogFragment dialogFragment;
+    BusScheduleDialogFragment scheduleDialogFragment;
 
     private List<RouteData> getLabels() {
         List<RouteData> labels = new ArrayList<>();
@@ -206,6 +205,7 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
         setContentView(R.layout.busrealtime);
         busRealRecycle = findViewById(R.id.busreal);
         dialogFragment = new DialogFragment();
+        scheduleDialogFragment = new BusScheduleDialogFragment();
         showRealtime();
     }
 
@@ -235,6 +235,13 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
                 startActivity(new Intent(BusRealTime.this, BusCrossStation.class));
             }
 
+            public void onClickschedule(View view, final int position) {
+                scheduleDialogFragment
+                        .show(getSupportFragmentManager(), "DialogFragment");
+
+
+            }
+
         });
 
 
@@ -246,6 +253,26 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
 
         busRealRecycle.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
+    }
+
+
+    public void dotimecaculate(){  //算距離抵達時間還要多久、監聽busscheduledialogfragment是按幾分鐘
+        scheduleDialogFragment.setOnItemClickListener(new BusScheduleDialogFragment.onItemClickListener(){
+
+            public void onClickthree(View view, final int position) { //三分鐘
+                startActivity(new Intent(BusRealTime.this, BusStartTime.class));
+            }
+            public void onClickfive(View view, final int position) { //五分鐘
+                startActivity(new Intent(BusRealTime.this, BusStartTime.class));
+            }
+            public void onClickseven(View view, final int position) {//七分鐘
+                startActivity(new Intent(BusRealTime.this, BusStartTime.class));
+            }
+            public void onClickeleven(View view, final int position) { //十一分鐘
+                startActivity(new Intent(BusRealTime.this, BusStartTime.class));
+            }
+
+        });
     }
 
 }
