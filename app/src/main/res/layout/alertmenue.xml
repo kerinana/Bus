@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:id="@+id/pop_layout"
-        android:layout_width="406dp"
+        android:layout_width="200dp"
         android:layout_height="331dp"
         android:orientation="vertical"
         android:weightSum="4"
@@ -20,29 +20,30 @@
 
         <Button
             android:id="@+id/three"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
+            android:layout_gravity="center"
             android:text="3分鐘"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/five"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dip"
             android:text="5分鐘"
             android:textStyle="bold" />
         <Button
             android:id="@+id/seven"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dip"
             android:text="7分鐘"
             android:textStyle="bold" />
         <Button
             android:id="@+id/eleven"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dip"
             android:text="11分鐘"
@@ -50,7 +51,7 @@
 
         <Button
             android:id="@+id/btn_cancel"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dip"
             android:layout_marginBottom="15dip"

@@ -7,13 +7,13 @@
 
     <TextView
         android:id="@+id/routename"
-        android:layout_width="176dp"
+        android:layout_width="150dp"
         android:layout_height="68dp"
-        android:layout_marginStart="92dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="4dp"
+        android:background="@drawable/border"
         android:gravity="center"
         android:text="@string/rountename"
-        android:background="@drawable/border"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,19 +33,19 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="141dp"
+        android:layout_width="wrap_content"
         android:layout_height="68dp"
         android:gravity="center"
         android:text="@string/realtimetitle"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.348"
         app:layout_constraintStart_toEndOf="@+id/routename"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="56dp"
         android:orientation="horizontal"
         android:weightSum="4"
