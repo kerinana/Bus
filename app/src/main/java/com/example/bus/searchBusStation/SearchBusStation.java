@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -92,7 +93,6 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) { //"有"+count+"個字符從"+start+" 位置開始  已經被"+ before+"箇舊的字符")
-                // TODO Auto-generated method stub
 //                getLabels();
 //                showSearchResult();
             }
@@ -100,10 +100,10 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
 
             @Override
             public void afterTextChanged(Editable s) {//"最終內容：" + s.toString());
-                // TODO Auto-generated method stub
-                System.out.println("afterTextChanged");
+                Log.d("TEST","afterTextChanged "+s.toString());
 //                getLabels();
 //                showSearchResult();
+                presenter.doSearch(s.toString());
             }
         });
 

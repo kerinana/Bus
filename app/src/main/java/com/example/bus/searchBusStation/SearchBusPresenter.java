@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchBusPresenter {
-    SearchBusStationContract view;
+    private SearchBusStationContract view;
+    // 查詢結果
+    private final List<RouteData> queryResult = new ArrayList<>();
 
     SearchBusPresenter(SearchBusStationContract view) {
         this.view = view;
@@ -22,18 +24,37 @@ public class SearchBusPresenter {
     public void getBusInfo() {
         //取得資料
         List<RouteEntity> routeEntityList = dataSource.getRouteEntityList();
-        //轉成List<RouteData>
-        List<RouteData> labels = new ArrayList<>();
+        queryResult.clear();
         //routeEntityList取出來，一個一個放進labels裡
         for (RouteEntity entity : routeEntityList) {
             RouteData label1 = new RouteData();
             label1.setDepartureStopNameZh(entity.getDepartureStopNameZh());
             label1.setDestinationStopNameZh(entity.getDestinationStopNameZh());
             label1.setRouteName(entity.getRouteName().getZhTw());
-            labels.add(label1);
+            queryResult.add(label1);
         }
 
         //傳資料給view
-        view.showSearchResult(labels);
+        view.showSearchResult(queryResult);
+    }
+
+    /**
+     * 將輸入資料和所有路線資料比對
+     * @param input 搜尋的輸入字串
+     */
+    public void doSearch(String input){
+
+        List<RouteData> searchResult = new ArrayList<>();
+        for (RouteData entity : queryResult) {
+
+            //比對結果相同時，把資料傳給view
+            if (entity.getRouteName().contains(input)){
+                searchResult.add(entity);
+            }
+
+        }
+        //傳資料給view
+        view.showSearchResult(searchResult);
+
     }
 }
