@@ -25,8 +25,9 @@
         <entry key="app/src/main/res/layout/menu.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/layout/push_bottom_in.xml" value="0.1953125" />
         <entry key="app/src/main/res/layout/search.xml" value="0.21197916666666666" />
-        <entry key="app/src/main/res/layout/searchbusstation.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/searchbusstation.xml" value="0.25" />
         <entry key="app/src/main/res/layout/tempdialod.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/menu/menu.xml" value="0.1953125" />
       </map>
     </option>
   </component>

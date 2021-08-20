@@ -73,7 +73,8 @@ public class HeadActivity extends AppCompatActivity implements HeadContract{
 
     @Override
     public void updateLike(List<RouteData> likeList) {
-        SearchAdapter searchAdapter=new SearchAdapter(this,getLabels());
+        SearchAdapter searchAdapter=new SearchAdapter(this);
+        searchAdapter.updateData(getLabels());
         searchAdapter.setOnItemClickListener(new SearchAdapter.onItemClickListener() { //丟事情給listener做
             @Override
             public void onClickHello(View view, final int position) {

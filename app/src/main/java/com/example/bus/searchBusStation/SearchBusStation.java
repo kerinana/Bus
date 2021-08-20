@@ -3,7 +3,10 @@ package com.example.bus.searchBusStation;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +18,6 @@ import com.example.bus.RouteData;
 import com.example.bus.busRealTime.BusRealTime;
 import com.example.bus.model.RouteDataSource;
 import com.example.bus.model.RouteEntity;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,35 +25,38 @@ import java.util.List;
 
 /**
  * 搜尋功能和連結likelist
- * */
+ */
 @RequiresApi(api = Build.VERSION_CODES.P)
-public class SearchBusStation extends AppCompatActivity implements SearchBusStationContract{
-    
+public class SearchBusStation extends AppCompatActivity implements SearchBusStationContract {
+
     private RecyclerView recyclerViewSearchList;
-    String jsonStr="[{\"RouteUID\":\"TPE10415\",\"RouteID\":\"10415\",\"RouteName\":{\"Zh_tw\":\"221\",\"En\":\"221\"},\"DepartureStopNameZh\":\"蘆洲\",\"DestinationStopNameZh\":\"臺北車站\"}]";
-    Gson gson;
+    EditText edittext;
     SearchAdapter searchAdapter;
+    int flag = 0;
+    List<RouteData> labels = new ArrayList<>();
 
+    private SearchBusPresenter presenter = new SearchBusPresenter(this);
 
-
+    //進來判斷字串和資料有沒有一樣
     private List<RouteData> getLabels() {
-        List<RouteData> labels = new ArrayList<>();
-//        RouteDataSource dataSource =new RouteDataSource();
-//        for(RouteEntity entity:dataSource.getRouteEntityList()){
-//           // if(entity.getRouteName().getZhTw().equals()){
-//                RouteData label1 = new RouteData();
-//                label1.getRouteName();
-//           // }
-//
-//
-//        }
 
-        RouteData label1 = new RouteData();
-        label1.setRouteID("1");
-        label1.setDepartureStopNameZh("蘆洲");
-        label1.setDestinationStopNameZh("北車");
-        label1.setRouteName("221");
-        labels.add(label1);
+
+        RouteDataSource dataSource = new RouteDataSource();//資料
+        RouteData label1;
+        if (flag == 0) {
+            flag = 1;
+        } else {
+            for (RouteEntity entity : dataSource.getRouteEntityList()) {
+                label1 = new RouteData();
+
+                if (entity.getRouteName().getZhTw().startsWith(edittext.getText().toString())) {
+                    label1.setRouteName(entity.getRouteName().getZhTw());
+                    labels.add(label1);
+                }
+                // }
+            }
+        }
+
         return labels;
     }
 
@@ -60,25 +65,13 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.searchbusstation);
+
+        // 初始化清單元件
         recyclerViewSearchList = findViewById(R.id.searchlist);
-        recyclerViewSearchList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));//表示列表是垂直往下
-        searchAdapter=new SearchAdapter(this,getLabels());
-
-        getLabels();
-        showSearchResult();
-    }
-
-
-
-
-    @Override
-    public void search() {
-
-
-    }
-
-    @Override
-    public void showSearchResult() {
+        // 表示列表是垂直往下
+        recyclerViewSearchList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        // 設定RecyclerView Adapter
+        searchAdapter = new SearchAdapter(this);
         searchAdapter.setOnItemClickListener(new SearchAdapter.onItemClickListener() { //丟事情(就是下面包的東西)給listener做
             @Override
             public void onClickHello(View view, final int position) {
@@ -86,6 +79,45 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
             }
         });
         recyclerViewSearchList.setAdapter(searchAdapter);
+
+
+        // 配置輸入介面
+        edittext = findViewById(R.id.editTextTextPersonName);
+        edittext.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { //"有"+count+"個字符僅僅從"+start+"開始要替換"+ after+"個字符所替換")
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { //"有"+count+"個字符從"+start+" 位置開始  已經被"+ before+"箇舊的字符")
+                // TODO Auto-generated method stub
+//                getLabels();
+//                showSearchResult();
+            }
+
+
+            @Override
+            public void afterTextChanged(Editable s) {//"最終內容：" + s.toString());
+                // TODO Auto-generated method stub
+                System.out.println("afterTextChanged");
+//                getLabels();
+//                showSearchResult();
+            }
+        });
+
+
+        // 取得公車資訊
+        presenter.getBusInfo();
+    }
+
+
+    @Override
+    public void showSearchResult(List<RouteData> routeEntityList) {
+
+        searchAdapter.updateData(routeEntityList);
+
     }
 
 

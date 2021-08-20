@@ -1,8 +1,16 @@
 package com.example.bus.searchBusStation;
 
+import com.example.bus.RouteData;
+import com.example.bus.model.RouteEntity;
+
+import java.util.List;
+
 public interface SearchBusStationContract {
 
-    void search();
-    void showSearchResult();
+    /**
+     * 顯示查詢結果
+     * @param routeEntityList 要顯示在畫面上的資訊
+     */
+    void showSearchResult(List<RouteData> routeEntityList);
 
 }
