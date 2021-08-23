@@ -42,7 +42,7 @@ public class HeadActivity extends AppCompatActivity implements HeadContract{
             label1.setDepartureStopNameZh(entity.getDepartureStopNameZh());
             label1.setDestinationStopNameZh(entity.getDestinationStopNameZh());
             label1.setRouteName(entity.getRouteName().getZhTw());
-            label1.setStopName("中原公園");
+//            label1.setStopName("中原公園");
             labels.add(label1);
         }
         return labels;
@@ -77,7 +77,7 @@ public class HeadActivity extends AppCompatActivity implements HeadContract{
         searchAdapter.updateData(getLabels());
         searchAdapter.setOnItemClickListener(new SearchAdapter.onItemClickListener() { //丟事情給listener做
             @Override
-            public void onClickHello(View view, final int position) {
+            public void onClickHello(String id,String name) {
                 startActivity(new Intent(HeadActivity.this,BusRealTime.class));
             }
         });

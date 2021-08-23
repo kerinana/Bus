@@ -58,7 +58,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     }
 
     public interface onItemClickListener {
-        void onClickHello(View view, int position);
+        void onClickHello(String id,String name);
     }
 
     public void setOnItemClickListener(onItemClickListener listener) {
@@ -90,6 +90,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
         holder.imageView.setOnClickListener(new View.OnClickListener() {
 
+            //星星標記
             @Override
             public void onClick(View view) {
                 if (likeitem.getLike()) {
@@ -130,7 +131,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                 public void onClick(View view) {
                     int index = getAdapterPosition();
                     likelist.get(index);
-                    clickListener.onClickHello(view, index);
+                    clickListener.onClickHello(likelist.get(index).getRouteID(),likelist.get(index).getRouteName());
 
 
                 }

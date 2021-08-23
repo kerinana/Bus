@@ -73,10 +73,15 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
         recyclerViewSearchList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         // 設定RecyclerView Adapter
         searchAdapter = new SearchAdapter(this);
-        searchAdapter.setOnItemClickListener(new SearchAdapter.onItemClickListener() { //丟事情(就是下面包的東西)給listener做
+        searchAdapter.setOnItemClickListener(new SearchAdapter.onItemClickListener() { //丟事情(就是下面包的東西)給listener(做畫面轉跳，跳到公車動態)
             @Override
-            public void onClickHello(View view, final int position) {
-                startActivity(new Intent(SearchBusStation.this, BusRealTime.class));
+            public void onClickHello(String id,String name) {
+                Log.d("TEST","onClickHello");
+               Intent intent= new Intent(SearchBusStation.this, BusRealTime.class);
+               intent.putExtra("RouteID",id);
+                intent.putExtra("Routename",name);
+                //intent.putExtra("stopID",id);
+               startActivity(intent);
             }
         });
         recyclerViewSearchList.setAdapter(searchAdapter);
@@ -93,16 +98,13 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) { //"有"+count+"個字符從"+start+" 位置開始  已經被"+ before+"箇舊的字符")
-//                getLabels();
-//                showSearchResult();
+
             }
 
 
             @Override
             public void afterTextChanged(Editable s) {//"最終內容：" + s.toString());
                 Log.d("TEST","afterTextChanged "+s.toString());
-//                getLabels();
-//                showSearchResult();
                 presenter.doSearch(s.toString());
             }
         });

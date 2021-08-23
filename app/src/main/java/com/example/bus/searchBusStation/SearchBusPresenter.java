@@ -31,6 +31,8 @@ public class SearchBusPresenter {
             label1.setDepartureStopNameZh(entity.getDepartureStopNameZh());
             label1.setDestinationStopNameZh(entity.getDestinationStopNameZh());
             label1.setRouteName(entity.getRouteName().getZhTw());
+            label1.setRouteID(entity.getRouteID());
+
             queryResult.add(label1);
         }
 

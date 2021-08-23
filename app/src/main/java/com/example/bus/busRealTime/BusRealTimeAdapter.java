@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bus.R;
 import com.example.bus.RouteData;
+import com.example.bus.model.RouteEntity;
 
 import java.util.List;
 import java.util.zip.Inflater;
@@ -20,36 +21,71 @@ import java.util.zip.Inflater;
 /**
  * 1.recyclevie和busrealtime的連接
  * 2.連接dialog
- * */
+ */
 public class BusRealTimeAdapter extends RecyclerView.Adapter<BusRealTimeAdapter.BusRealTimeViewHolder> {
 
     private final Context context;
-    private final List<RouteData> routedata;
+    private final String Routeid;
     private OnOpenDialogListener listener;
+    private List<RouteData> routedata;
 
-    public BusRealTimeAdapter(Context activity,List<RouteData> routedata,OnOpenDialogListener listener){
-        this.context=activity;
-        this.routedata=routedata;
-        this.listener=listener;
+    public void UpDateRoute(List<RouteData> queryResult) {
+        routedata = queryResult;
+        notifyDataSetChanged();
     }
+
+    public BusRealTimeAdapter(Context activity, String Routeid, OnOpenDialogListener listener) {
+        this.context = activity;
+        this.Routeid = Routeid;
+        this.listener = listener;
+    }
+
     interface OnOpenDialogListener {//應該要傳ＩＤ給他
+
         void onOpenDialog();
     }
+
     @NonNull
     @Override
     public BusRealTimeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
 
-        View view= LayoutInflater.from(context).inflate(R.layout.busrealtimelist, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.busrealtimelist, parent, false);
         return new BusRealTimeViewHolder(view);
 
     }
 
+    /**
+     * 把stop和抵達時間連接view
+     */
     @Override
     public void onBindViewHolder(@NonNull BusRealTimeViewHolder holder, int position) {
-        RouteData routeitem=routedata.get(position);
-        holder.realtime.setText(" "+routeitem.getGPSTime());
-        holder.station.setText((CharSequence) routeitem.getStopName());
+
+
+        RouteData routeitem = routedata.get(position);
+
+        //判斷車子狀態
+        if (routeitem.getStopStatus() == 0 ) {//狀態為正常
+            //如果預估時間=0
+            if(routeitem.getEstimateTime() == 1){
+                holder.realtime.setText("進站中");
+            }
+            else{
+                holder.realtime.setText(" " + routeitem.getEstimateTime() + "分");
+            }
+        } else if (routeitem.getStopStatus() == 1) { //1:'尚未發車
+            if(routeitem.getEstimateTime() == 0) holder.realtime.setText("尚未發車");
+            else holder.realtime.setText(" " + routeitem.getEstimateTime() + "分");
+
+        }else if (routeitem.getStopStatus() == 2) {
+            holder.realtime.setText("交管不停靠");
+        }else if (routeitem.getStopStatus() == 3) {
+            holder.realtime.setText("末班車已過");
+        }else if (routeitem.getStopStatus() == 4) {
+            holder.realtime.setText("今日未營運");
+        }
+
+        holder.station.setText(routeitem.getStopName().getZhTw());
 
 
     }
@@ -59,19 +95,21 @@ public class BusRealTimeAdapter extends RecyclerView.Adapter<BusRealTimeAdapter.
         return routedata.size();
     }
 
-    public  class BusRealTimeViewHolder extends RecyclerView.ViewHolder{
-        TextView station,realtime;
-        Button go,back;
+    public class BusRealTimeViewHolder extends RecyclerView.ViewHolder {
+        TextView station, realtime;
+        Button go, back;
 
         public BusRealTimeViewHolder(@NonNull View itemView) {
             super(itemView);
-            station=itemView.findViewById(R.id.station);
-            realtime=itemView.findViewById(R.id.realtime);
+            station = itemView.findViewById(R.id.station);
+            realtime = itemView.findViewById(R.id.realtime);
+
+            //做dialog的連接
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int index=getAdapterPosition();
-                    RouteData routeData=routedata.get(index);
+                    int index = getAdapterPosition();
+                    RouteData routeData = routedata.get(index);
 
                     listener.onOpenDialog();
                 }
