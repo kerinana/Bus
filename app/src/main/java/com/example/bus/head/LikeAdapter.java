@@ -53,6 +53,7 @@ public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.LikeViewHolder
 
     public interface onItemClickListener {
         void onClickHello(String id,String name);
+        void onClicklikecancel(int position);
     }
 
     public void setOnItemClickListener(LikeAdapter.onItemClickListener listener) {
@@ -85,15 +86,12 @@ public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.LikeViewHolder
 
             //從SharedPreferences裡拿有的打星星的有幾個
 
-            //星星標記
+            //星星標記，只要按星星表示取消
             @Override
             public void onClick(View view) {
-                if (likeitem.getLike()) {//如果有打星星
                     likeitem.setLike(false);
+                    clickListener.onClicklikecancel(holder.getAdapterPosition());
                     holder.imageView.setImageResource(android.R.drawable.btn_star_big_off);
-
-                }
-
             }
 
 

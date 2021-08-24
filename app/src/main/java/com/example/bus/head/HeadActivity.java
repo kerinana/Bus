@@ -1,5 +1,6 @@
 package com.example.bus.head;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,7 +27,7 @@ public class HeadActivity extends AppCompatActivity implements HeadContract{
     RecyclerView recyclerViewSearchList;
     Button button;
     List<RouteData> test = new ArrayList<>();
-    HeadPresent present =new HeadPresent(this);
+    HeadPresent present =new HeadPresent(this,this);
     LikeAdapter likeAdapter=new LikeAdapter(this);
     //HeadPresent present;
 
@@ -66,6 +67,10 @@ public class HeadActivity extends AppCompatActivity implements HeadContract{
                 intent.putExtra("Routename",name);
                 //intent.putExtra("stopID",id);
                 startActivity(intent);
+            }
+            //按取消時，回傳位置，再去present做
+            public void onClicklikecancel(int position) {
+              present.cancellike(position);
             }
 
 

@@ -84,6 +84,7 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
             }
 
         });
+        //回程按鈕
         Button backroute =findViewById(R.id.backroute);
         backroute.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +92,7 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
                 presenter.getbackRouteInfo(Routeid);
             }
         });
+        //去程按鈕
         Button goroute =findViewById(R.id.goroute);
         goroute.setOnClickListener(new View.OnClickListener() {
             @Override
