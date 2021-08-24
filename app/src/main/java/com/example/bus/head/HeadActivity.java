@@ -84,12 +84,15 @@ public class HeadActivity extends AppCompatActivity implements HeadContract{
             }
         });
 
-        present.getlikeitem(this);
+
 
     }
 
-
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        present.getlikeitem(this);
+    }
     //顯示我的最愛
     /**
      * 顯示我的最愛
