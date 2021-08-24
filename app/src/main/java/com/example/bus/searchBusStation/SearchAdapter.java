@@ -1,34 +1,19 @@
 package com.example.bus.searchBusStation;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.google.gson.reflect.TypeToken;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bus.R;
 import com.example.bus.RouteData;
-import com.example.bus.head.HeadContract;
-import com.example.bus.head.HeadPresent;
-import com.example.bus.head.LikeAdapter;
-import com.example.bus.model.RouteEntity;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 
@@ -41,7 +26,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     private final Context context;
     private final List<RouteData> likelist = new ArrayList<>();
     private onItemClickListener clickListener;
-    List<RouteData> data =new ArrayList<>();
 
 
     public SearchAdapter(Context activity) {
@@ -122,6 +106,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
                     RouteData lable =new RouteData();
                     lable.setRouteName(likeitem.getRouteName());
+                    lable.setRouteID(likeitem.getRouteID());
                     lable.setDepartureStopNameZh(likeitem.getDepartureStopNameZh());
                     lable.setDestinationStopNameZh(likeitem.getDestinationStopNameZh());
                     lable.setLike(true);

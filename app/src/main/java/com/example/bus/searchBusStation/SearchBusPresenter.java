@@ -111,7 +111,7 @@ public class SearchBusPresenter {
                 Type routeEntityTypeToken = TypeToken.getParameterized(List.class, com.example.bus.RouteData.class).getType();
                 alterSamples = gson.fromJson(likedata, routeEntityTypeToken);
 
-                //  判斷資料相同時，不做下面的if（就是去加入新資料）
+                //  判斷資料相同時，不做下面的if（就是不加入新資料）
                 for(int i=0;i<alterSamples.size();i++){
                     if(alterSamples.get(i).getRouteName().equals(data.getRouteName())){
                         flag=false;

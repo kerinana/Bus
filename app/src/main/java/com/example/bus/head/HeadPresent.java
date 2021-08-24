@@ -20,7 +20,7 @@ import java.util.List;
 public class HeadPresent {
 
     List<RouteData> data = new ArrayList<>();
-    private HeadContract view;
+    private final HeadContract view;
     Context context;
 
     public HeadPresent(Context context, HeadContract view) {
