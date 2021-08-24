@@ -107,11 +107,9 @@ public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.LikeViewHolder
         holder.rountename.setText(likeitem.getRouteName());
         holder.startstation.setText(likeitem.getDepartureStopNameZh());
         holder.endstation.setText(likeitem.getDestinationStopNameZh());
-        if (likeitem.getLike()) {
-            holder.imageView.setImageResource(android.R.drawable.btn_star_big_on);
-        } else {
-            holder.imageView.setImageResource(android.R.drawable.btn_star_big_off);
-        }
+
+        holder.imageView.setImageResource(android.R.drawable.btn_star_big_on);
+
 
         holder.imageView.setOnClickListener(new View.OnClickListener() {
 
@@ -124,28 +122,6 @@ public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.LikeViewHolder
                 if (likeitem.getLike()) {//如果有打星星
                     likeitem.setLike(false);
                     holder.imageView.setImageResource(android.R.drawable.btn_star_big_off);
-
-                    SharedPreferences pref = context.getSharedPreferences("like", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.clear();
-                    //editor.remove("name");
-                    editor.commit();
-
-
-                } else {
-                    likeitem.setLike(true);
-                    holder.imageView.setImageResource(android.R.drawable.btn_star_big_on);
-//
-                    //把資料存進SharedPreferences
-                    SharedPreferences pref = context.getSharedPreferences("like", MODE_PRIVATE);
-                    pref.edit()
-                            .putBoolean("islike", likeitem.getLike())
-                            .putString("RouteID",likeitem.getRouteID())
-                            .putString("Departure",likeitem.getDepartureStopNameZh())
-                            .putString("Destination",likeitem.getDestinationStopNameZh())
-                            .putString("Routename",likeitem.getRouteName())
-                            .commit();
-                    updatelike();
 
                 }
 

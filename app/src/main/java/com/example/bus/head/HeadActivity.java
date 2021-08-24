@@ -54,15 +54,8 @@ public class HeadActivity extends AppCompatActivity implements HeadContract{
         //我的最愛清單
         recyclerViewSearchList = findViewById(R.id.mylikelist);
         recyclerViewSearchList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));//表示列表是垂直往下
+
         //按下清單會跳到公車動態畫面
-        //SearchAdapter searchAdapter=new SearchAdapter(this);
-//        searchAdapter.updateData(getLabels());
-//        searchAdapter.setOnItemClickListener(new SearchAdapter.onItemClickListener() { //丟事情給listener做
-//            @Override
-//            public void onClickHello(String id,String name) {
-//                startActivity(new Intent(HeadActivity.this,BusRealTime.class));
-//            }
-//        });
         likeAdapter = new LikeAdapter(this);
         likeAdapter.setOnItemClickListener(new LikeAdapter.onItemClickListener() { //丟事情(就是下面包的東西)給listener
             @Override

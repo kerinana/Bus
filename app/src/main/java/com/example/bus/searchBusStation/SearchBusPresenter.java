@@ -83,31 +83,31 @@ public class SearchBusPresenter {
     @SuppressLint("ApplySharedPref")
     public void addToLike(RouteData data) {
 
-        if(data!=null){}
-        else{
-            Gson gson = new Gson();
-            //拿list轉為json，即可儲存到SharedPreferences中
-            List<RouteData> alterSamples;
-            //獨檔
-            SharedPreferences pref = context.getSharedPreferences(PREF_NAME_BUS_APP_DATA, MODE_PRIVATE);
-            //把資料從SharedPreferences取出來
-            String likedata = pref.getString(PREF_KEY_BUS_FAVORITE_ROUTE, null);//第二格是找不到PREF_KEY_BUS_FAVORITE_ROUTE時，回傳null
-            //把新的資料加入舊的清單中
-            Type routeEntityTypeToken = TypeToken.getParameterized(List.class, com.example.bus.RouteData.class).getType();
-            alterSamples = gson.fromJson(likedata, routeEntityTypeToken);
-            //把結果放進editor
-            alterSamples.add(data);
+
+                Gson gson = new Gson();
+
+                //拿list轉為json，即可儲存到SharedPreferences中
+                List<RouteData> alterSamples;
+                //獨檔
+                SharedPreferences pref = context.getSharedPreferences(PREF_NAME_BUS_APP_DATA, MODE_PRIVATE);
+                //把資料從SharedPreferences取出來
+                String likedata = pref.getString(PREF_KEY_BUS_FAVORITE_ROUTE, "[]");//第二格是找不到PREF_KEY_BUS_FAVORITE_ROUTE時，回傳null
+                //把新的資料加入舊的清單中
+                Type routeEntityTypeToken = TypeToken.getParameterized(List.class, com.example.bus.RouteData.class).getType();
+                alterSamples = gson.fromJson(likedata, routeEntityTypeToken);
+                //把結果放進editor
+                alterSamples.add(data);
 
 
-            SharedPreferences.Editor editor = context.getSharedPreferences(PREF_NAME_BUS_APP_DATA, MODE_PRIVATE).edit();
+                SharedPreferences.Editor editor = context.getSharedPreferences(PREF_NAME_BUS_APP_DATA, MODE_PRIVATE).edit();
 
-            //把alterSamples轉成json
-            String json = gson.toJson(alterSamples);
+                //把alterSamples轉成json
+                String json = gson.toJson(alterSamples);
 
-            //放進editor
-            editor.putString(PREF_KEY_BUS_FAVORITE_ROUTE, json);
-            editor.commit();
-        }
+                //放進editor
+                editor.putString(PREF_KEY_BUS_FAVORITE_ROUTE, json);
+                editor.commit();
+
 
     }
 }
