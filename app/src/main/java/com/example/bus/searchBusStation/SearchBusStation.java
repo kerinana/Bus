@@ -36,7 +36,7 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
     int flag = 0;
     List<RouteData> labels = new ArrayList<>();
 
-    private SearchBusPresenter presenter = new SearchBusPresenter(this);
+    private SearchBusPresenter presenter = new SearchBusPresenter(this,this);
 
     //進來判斷字串和資料有沒有一樣
     private List<RouteData> getLabels() {
@@ -73,9 +73,9 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
         recyclerViewSearchList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         // 設定RecyclerView Adapter
         searchAdapter = new SearchAdapter(this);
-        searchAdapter.setOnItemClickListener(new SearchAdapter.onItemClickListener() { //丟事情(就是下面包的東西)給listener(做畫面轉跳，跳到公車動態)
+        searchAdapter.setOnItemClickListener(new SearchAdapter.onItemClickListener() { //丟事情(就是下面包的東西)給listener
             @Override
-            public void onClickHello(String id,String name) {
+            public void onClickHello(String id,String name) {//(做畫面轉跳，跳到公車動態)
                 Log.d("TEST","onClickHello");
                Intent intent= new Intent(SearchBusStation.this, BusRealTime.class);
                intent.putExtra("RouteID",id);
@@ -83,6 +83,12 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
                 //intent.putExtra("stopID",id);
                startActivity(intent);
             }
+            //按下加到我的最愛按鈕
+            public void onClicklike(RouteData data) {
+               presenter.addToLike(data);
+            }
+
+
         });
         recyclerViewSearchList.setAdapter(searchAdapter);
 

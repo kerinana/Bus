@@ -17,6 +17,7 @@ public class RouteData {
     int A2EventType;//1進站 0離站
 //    Date GPSTime;//距離抵達站牌多久的時間
 //    Date UpdateTime;//平台更新時間
+    Boolean  isLike = false;
 
     int GPSTime;//距離抵達站牌多久的時間
     int UpdateTime;//平台更新時間
@@ -108,7 +109,7 @@ public class RouteData {
     }
 
 
-    Boolean isLike = false;
+
 
     public Boolean getLike() {
         return isLike;

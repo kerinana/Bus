@@ -2,6 +2,7 @@ package com.example.bus.head;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -25,15 +26,12 @@ public class HeadActivity extends AppCompatActivity implements HeadContract{
     RecyclerView recyclerViewSearchList;
     Button button;
     List<RouteData> test = new ArrayList<>();
+    HeadPresent present =new HeadPresent(this);
+    LikeAdapter likeAdapter=new LikeAdapter(this);
+    //HeadPresent present;
 
     private List<RouteData> getLabels() {
         List<RouteData> labels = new ArrayList<>();
-//        RouteData label1 = new RouteData();
-//        label1.setRouteID("1");
-//        label1.setDepartureStopNameZh("蘆洲");
-//        label1.setDestinationStopNameZh("北車");
-//        label1.setRouteName("221");
-//        labels.add(label1);
         //用資料
         RouteDataSource dataSource = new RouteDataSource();
         for (RouteEntity entity : dataSource.getRouteEntityList()) {
@@ -42,7 +40,6 @@ public class HeadActivity extends AppCompatActivity implements HeadContract{
             label1.setDepartureStopNameZh(entity.getDepartureStopNameZh());
             label1.setDestinationStopNameZh(entity.getDestinationStopNameZh());
             label1.setRouteName(entity.getRouteName().getZhTw());
-//            label1.setStopName("中原公園");
             labels.add(label1);
         }
         return labels;
@@ -53,9 +50,39 @@ public class HeadActivity extends AppCompatActivity implements HeadContract{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.head);
-        button=findViewById(R.id.tosearchstationbutton);
+
+        //我的最愛清單
         recyclerViewSearchList = findViewById(R.id.mylikelist);
         recyclerViewSearchList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));//表示列表是垂直往下
+        //按下清單會跳到公車動態畫面
+        //SearchAdapter searchAdapter=new SearchAdapter(this);
+//        searchAdapter.updateData(getLabels());
+//        searchAdapter.setOnItemClickListener(new SearchAdapter.onItemClickListener() { //丟事情給listener做
+//            @Override
+//            public void onClickHello(String id,String name) {
+//                startActivity(new Intent(HeadActivity.this,BusRealTime.class));
+//            }
+//        });
+        likeAdapter = new LikeAdapter(this);
+        likeAdapter.setOnItemClickListener(new LikeAdapter.onItemClickListener() { //丟事情(就是下面包的東西)給listener
+            @Override
+            public void onClickHello(String id,String name) {//(做畫面轉跳，跳到公車動態)
+                Log.d("TEST","onClickHello");
+                Intent intent= new Intent(HeadActivity.this, BusRealTime.class);
+                intent.putExtra("RouteID",id);
+                intent.putExtra("Routename",name);
+                //intent.putExtra("stopID",id);
+                startActivity(intent);
+            }
+
+
+        });
+        recyclerViewSearchList.setAdapter(likeAdapter);
+
+
+
+        //搜尋站牌按鈕
+        button=findViewById(R.id.tosearchstationbutton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,23 +91,18 @@ public class HeadActivity extends AppCompatActivity implements HeadContract{
             }
         });
 
-        updateLike(test);
+        present.getlikeitem(this);
 
     }
 
 
 
-
+    //顯示我的最愛
     @Override
     public void updateLike(List<RouteData> likeList) {
-        SearchAdapter searchAdapter=new SearchAdapter(this);
-        searchAdapter.updateData(getLabels());
-        searchAdapter.setOnItemClickListener(new SearchAdapter.onItemClickListener() { //丟事情給listener做
-            @Override
-            public void onClickHello(String id,String name) {
-                startActivity(new Intent(HeadActivity.this,BusRealTime.class));
-            }
-        });
-        recyclerViewSearchList.setAdapter(searchAdapter);
+        //取出like清單
+
+        likeAdapter.updateData(likeList);
+
     }
 }

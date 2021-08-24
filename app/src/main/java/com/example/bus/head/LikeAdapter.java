@@ -1,4 +1,4 @@
-package com.example.bus.searchBusStation;
+package com.example.bus.head;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -8,46 +8,27 @@ import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.google.gson.reflect.TypeToken;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bus.R;
 import com.example.bus.RouteData;
-import com.example.bus.head.HeadContract;
-import com.example.bus.head.HeadPresent;
-import com.example.bus.head.LikeAdapter;
-import com.example.bus.model.RouteEntity;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import com.example.bus.searchBusStation.SearchAdapter;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-
-/**
- * *
- * 做liklist 的viewholder
- */
-
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder>  {
+public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.LikeViewHolder>  {
     private final Context context;
     private final List<RouteData> likelist = new ArrayList<>();
-    private onItemClickListener clickListener;
+    private LikeAdapter.onItemClickListener clickListener;
     List<RouteData> data =new ArrayList<>();
-    RouteData predata=new RouteData();
-    private static SharedPreferences.Editor editor;
-    private SharedPreferences preferences;
 
 
-    public SearchAdapter(Context activity) {
+    public LikeAdapter(Context activity) {
         this.context = activity;
     }
 
@@ -67,31 +48,61 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         // adapter更新
         notifyDataSetChanged();
     }
+    public void updatelike() {
+        //SharedPreferences的數量
+        data.clear();
+        int number = context.getSharedPreferences("like", MODE_PRIVATE)
+                .getAll().size();
 
+        for(int i=0;i<number;i++){
+            boolean like = context.getSharedPreferences("like", MODE_PRIVATE)
+                    .contains("islike");
+            String routeid = context.getSharedPreferences("like", MODE_PRIVATE)
+                    .getString("RouteID","");
+
+            String Departure = context.getSharedPreferences("like", MODE_PRIVATE)
+                    .getString("Departure","");
+            String Destination = context.getSharedPreferences("like", MODE_PRIVATE)
+                    .getString("Destination","");
+
+            String routename = context.getSharedPreferences("like", MODE_PRIVATE)
+                    .getString("Routename","");
+
+
+            RouteData label1 = new RouteData();
+            label1.setDepartureStopNameZh(Departure);
+            label1.setDestinationStopNameZh(Destination);
+            label1.setRouteName(routename);
+            label1.setRouteID(routeid);
+            label1.setLike(like);
+            data.add(label1);
+        }
+        //updateData(data);
+
+    }
 
 
     public interface onItemClickListener {
         void onClickHello(String id,String name);
-        void onClicklike(RouteData data);
     }
 
-    public void setOnItemClickListener(onItemClickListener listener) {
+    public void setOnItemClickListener(LikeAdapter.onItemClickListener listener) {
         this.clickListener = listener;
     }
 
     @NonNull
     @Override
-    public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public LikeAdapter.LikeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.likelist, parent, false);
-        return new SearchViewHolder(view);
+        return new LikeAdapter.LikeViewHolder(view);
     }
 
     @SuppressLint({"UseCompatLoadingForDrawables", "NotifyDataSetChanged"})
     @Override
-    public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull LikeAdapter.LikeViewHolder holder, int position) {
 
-
+        updatelike();
         RouteData likeitem = likelist.get(position);
         holder.rountename.setText(likeitem.getRouteName());
         holder.startstation.setText(likeitem.getDepartureStopNameZh());
@@ -114,17 +125,27 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                     likeitem.setLike(false);
                     holder.imageView.setImageResource(android.R.drawable.btn_star_big_off);
 
+                    SharedPreferences pref = context.getSharedPreferences("like", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.clear();
+                    //editor.remove("name");
+                    editor.commit();
+
 
                 } else {
                     likeitem.setLike(true);
                     holder.imageView.setImageResource(android.R.drawable.btn_star_big_on);
-
-                    RouteData lable =new RouteData();
-                    lable.setRouteName(likeitem.getRouteName());
-                    lable.setDepartureStopNameZh(likeitem.getDepartureStopNameZh());
-                    lable.setDestinationStopNameZh(likeitem.getDestinationStopNameZh());
-                    clickListener.onClicklike(lable);
-
+//
+                    //把資料存進SharedPreferences
+                    SharedPreferences pref = context.getSharedPreferences("like", MODE_PRIVATE);
+                    pref.edit()
+                            .putBoolean("islike", likeitem.getLike())
+                            .putString("RouteID",likeitem.getRouteID())
+                            .putString("Departure",likeitem.getDepartureStopNameZh())
+                            .putString("Destination",likeitem.getDestinationStopNameZh())
+                            .putString("Routename",likeitem.getRouteName())
+                            .commit();
+                    updatelike();
 
                 }
 
@@ -139,7 +160,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         return likelist.size();
     }
 
-    public class SearchViewHolder extends RecyclerView.ViewHolder {
+    public class LikeViewHolder extends RecyclerView.ViewHolder {
 
 
         private final TextView rountename, endstation, startstation;
@@ -147,7 +168,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
 
         @SuppressLint("NotifyDataSetChanged")
-        public SearchViewHolder(@NonNull View itemView) {
+        public LikeViewHolder(@NonNull View itemView) {
             super(itemView);
 
             this.rountename = itemView.findViewById(R.id.routename);
