@@ -91,6 +91,11 @@ public class HeadActivity extends AppCompatActivity implements HeadContract{
 
 
     //顯示我的最愛
+    /**
+     * 顯示我的最愛
+     * @param likeList 為清單資訊
+     * */
+
     @Override
     public void updateLike(List<RouteData> likeList) {
         //取出like清單

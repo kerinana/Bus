@@ -48,38 +48,7 @@ public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.LikeViewHolder
         // adapter更新
         notifyDataSetChanged();
     }
-    public void updatelike() {
-        //SharedPreferences的數量
-        data.clear();
-        int number = context.getSharedPreferences("like", MODE_PRIVATE)
-                .getAll().size();
 
-        for(int i=0;i<number;i++){
-            boolean like = context.getSharedPreferences("like", MODE_PRIVATE)
-                    .contains("islike");
-            String routeid = context.getSharedPreferences("like", MODE_PRIVATE)
-                    .getString("RouteID","");
-
-            String Departure = context.getSharedPreferences("like", MODE_PRIVATE)
-                    .getString("Departure","");
-            String Destination = context.getSharedPreferences("like", MODE_PRIVATE)
-                    .getString("Destination","");
-
-            String routename = context.getSharedPreferences("like", MODE_PRIVATE)
-                    .getString("Routename","");
-
-
-            RouteData label1 = new RouteData();
-            label1.setDepartureStopNameZh(Departure);
-            label1.setDestinationStopNameZh(Destination);
-            label1.setRouteName(routename);
-            label1.setRouteID(routeid);
-            label1.setLike(like);
-            data.add(label1);
-        }
-        //updateData(data);
-
-    }
 
 
     public interface onItemClickListener {
@@ -102,7 +71,7 @@ public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.LikeViewHolder
     @Override
     public void onBindViewHolder(@NonNull LikeAdapter.LikeViewHolder holder, int position) {
 
-        updatelike();
+
         RouteData likeitem = likelist.get(position);
         holder.rountename.setText(likeitem.getRouteName());
         holder.startstation.setText(likeitem.getDepartureStopNameZh());

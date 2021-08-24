@@ -88,14 +88,14 @@ public class SearchBusPresenter {
 
                 //拿list轉為json，即可儲存到SharedPreferences中
                 List<RouteData> alterSamples;
-                //獨檔
+                //讀檔
                 SharedPreferences pref = context.getSharedPreferences(PREF_NAME_BUS_APP_DATA, MODE_PRIVATE);
                 //把資料從SharedPreferences取出來
-                String likedata = pref.getString(PREF_KEY_BUS_FAVORITE_ROUTE, "[]");//第二格是找不到PREF_KEY_BUS_FAVORITE_ROUTE時，回傳null
-                //把新的資料加入舊的清單中
+                String likedata = pref.getString(PREF_KEY_BUS_FAVORITE_ROUTE, "[]");//第二格是找不到PREF_KEY_BUS_FAVORITE_ROUTE時，回傳[]
+                //把格式轉成List<Routedata>的格式
                 Type routeEntityTypeToken = TypeToken.getParameterized(List.class, com.example.bus.RouteData.class).getType();
                 alterSamples = gson.fromJson(likedata, routeEntityTypeToken);
-                //把結果放進editor
+                //把新的資料加入舊的清單中
                 alterSamples.add(data);
 
 

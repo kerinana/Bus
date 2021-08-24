@@ -161,7 +161,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                     likelist.get(index);
                     clickListener.onClickHello(likelist.get(index).getRouteID(),likelist.get(index).getRouteName());
 
-
                 }
             });
 
