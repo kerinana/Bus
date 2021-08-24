@@ -100,7 +100,7 @@ public class HeadActivity extends AppCompatActivity implements HeadContract{
     }
     //顯示我的最愛
     /**
-     * 顯示我的最愛
+     * 更新我的最愛畫面
      * @param likeList 為清單資訊
      * */
 

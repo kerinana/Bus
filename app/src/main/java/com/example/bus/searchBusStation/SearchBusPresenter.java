@@ -83,7 +83,7 @@ public class SearchBusPresenter {
     @SuppressLint("ApplySharedPref")
     public void addToLike(RouteData data) {
 
-
+                boolean flag=true;
                 Gson gson = new Gson();
 
                 //拿list轉為json，即可儲存到SharedPreferences中
@@ -95,19 +95,27 @@ public class SearchBusPresenter {
                 //把格式轉成List<Routedata>的格式
                 Type routeEntityTypeToken = TypeToken.getParameterized(List.class, com.example.bus.RouteData.class).getType();
                 alterSamples = gson.fromJson(likedata, routeEntityTypeToken);
+
+                //  判斷資料相同時，不做下面的if（就是去加入新資料）
+                for(int i=0;i<alterSamples.size();i++){
+                    if(alterSamples.get(i).getRouteName().equals(data.getRouteName())){
+                        flag=false;
+                    };
+                }
                 //把新的資料加入舊的清單中
-                alterSamples.add(data);
+                if(flag) {
+                    alterSamples.add(data);
 
 
-                SharedPreferences.Editor editor = context.getSharedPreferences(PREF_NAME_BUS_APP_DATA, MODE_PRIVATE).edit();
+                    SharedPreferences.Editor editor = context.getSharedPreferences(PREF_NAME_BUS_APP_DATA, MODE_PRIVATE).edit();
 
-                //把alterSamples轉成json
-                String json = gson.toJson(alterSamples);
+                    //把alterSamples轉成json
+                    String json = gson.toJson(alterSamples);
 
-                //放進editor
-                editor.putString(PREF_KEY_BUS_FAVORITE_ROUTE, json);
-                editor.commit();
-
+                    //放進editor
+                    editor.putString(PREF_KEY_BUS_FAVORITE_ROUTE, json);
+                    editor.commit();
+                }
 
     }
 }
