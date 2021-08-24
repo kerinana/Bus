@@ -22,8 +22,9 @@ public class HeadPresent {
     List<RouteData> data = new ArrayList<>();
     private HeadContract view;
     Context context;
+
     public HeadPresent(Context context, HeadContract view) {
-        this.context=context;
+        this.context = context;
         this.view = view;
     }
 

@@ -54,7 +54,6 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
                     label1.setRouteName(entity.getRouteName().getZhTw());
                     labels.add(label1);
                 }
-                // }
             }
         }
 
@@ -83,9 +82,13 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
                 //intent.putExtra("stopID",id);
                startActivity(intent);
             }
-            //按下加到我的最愛按鈕
+            //按下星星
             public void onClicklike(RouteData data) {
                presenter.addToLike(data);
+            }
+            //按下取消星星
+            public void onClicklikecancel(String position) {
+                presenter.cancellike(position);
             }
 
 

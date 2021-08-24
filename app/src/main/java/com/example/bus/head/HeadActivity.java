@@ -22,13 +22,13 @@ import com.example.bus.searchBusStation.SearchBusStation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HeadActivity extends AppCompatActivity implements HeadContract{
+public class HeadActivity extends AppCompatActivity implements HeadContract {
 
     RecyclerView recyclerViewSearchList;
     Button button;
     List<RouteData> test = new ArrayList<>();
-    HeadPresent present =new HeadPresent(this,this);
-    LikeAdapter likeAdapter=new LikeAdapter(this);
+    HeadPresent present = new HeadPresent(this, this);
+    LikeAdapter likeAdapter = new LikeAdapter(this);
     //HeadPresent present;
 
     private List<RouteData> getLabels() {
@@ -60,17 +60,18 @@ public class HeadActivity extends AppCompatActivity implements HeadContract{
         likeAdapter = new LikeAdapter(this);
         likeAdapter.setOnItemClickListener(new LikeAdapter.onItemClickListener() { //丟事情(就是下面包的東西)給listener
             @Override
-            public void onClickHello(String id,String name) {//(做畫面轉跳，跳到公車動態)
-                Log.d("TEST","onClickHello");
-                Intent intent= new Intent(HeadActivity.this, BusRealTime.class);
-                intent.putExtra("RouteID",id);
-                intent.putExtra("Routename",name);
+            public void onClickHello(String id, String name) {//(做畫面轉跳，跳到公車動態)
+                Log.d("TEST", "onClickHello");
+                Intent intent = new Intent(HeadActivity.this, BusRealTime.class);
+                intent.putExtra("RouteID", id);
+                intent.putExtra("Routename", name);
                 //intent.putExtra("stopID",id);
                 startActivity(intent);
             }
+
             //按取消時，回傳位置，再去present做
             public void onClicklikecancel(int position) {
-              present.cancellike(position);
+                present.cancellike(position);
             }
 
 
@@ -78,17 +79,15 @@ public class HeadActivity extends AppCompatActivity implements HeadContract{
         recyclerViewSearchList.setAdapter(likeAdapter);
 
 
-
         //搜尋站牌按鈕
-        button=findViewById(R.id.tosearchstationbutton);
+        button = findViewById(R.id.tosearchstationbutton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(HeadActivity.this,SearchBusStation.class);
+                Intent intent = new Intent(HeadActivity.this, SearchBusStation.class);
                 startActivity(intent);
             }
         });
-
 
 
     }
@@ -98,11 +97,12 @@ public class HeadActivity extends AppCompatActivity implements HeadContract{
         super.onStart();
         present.getlikeitem(this);
     }
-    //顯示我的最愛
+
     /**
      * 更新我的最愛畫面
+     *
      * @param likeList 為清單資訊
-     * */
+     */
 
     @Override
     public void updateLike(List<RouteData> likeList) {

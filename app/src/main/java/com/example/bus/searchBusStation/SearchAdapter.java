@@ -42,9 +42,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     private final List<RouteData> likelist = new ArrayList<>();
     private onItemClickListener clickListener;
     List<RouteData> data =new ArrayList<>();
-    RouteData predata=new RouteData();
-    private static SharedPreferences.Editor editor;
-    private SharedPreferences preferences;
 
 
     public SearchAdapter(Context activity) {
@@ -73,6 +70,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     public interface onItemClickListener {
         void onClickHello(String id,String name);
         void onClicklike(RouteData data);
+        void onClicklikecancel(String position);
     }
 
     public void setOnItemClickListener(onItemClickListener listener) {
@@ -110,19 +108,23 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             //星星標記
             @Override
             public void onClick(View view) {
-                if (likeitem.getLike()) {//如果有打星星
-                    likeitem.setLike(false);
+                //星星原本是亮的
+                if (likeitem.getLike()) {
+                    likeitem.setLike(false);//按下後變暗
                     holder.imageView.setImageResource(android.R.drawable.btn_star_big_off);
+                    //傳要變暗的routename給presenter
+                    clickListener.onClicklikecancel(likeitem.getRouteName());
 
 
-                } else {
-                    likeitem.setLike(true);
+                } else {//星星原本是暗的
+                    likeitem.setLike(true);//按下後變亮
                     holder.imageView.setImageResource(android.R.drawable.btn_star_big_on);
 
                     RouteData lable =new RouteData();
                     lable.setRouteName(likeitem.getRouteName());
                     lable.setDepartureStopNameZh(likeitem.getDepartureStopNameZh());
                     lable.setDestinationStopNameZh(likeitem.getDestinationStopNameZh());
+                    lable.setLike(true);
                     clickListener.onClicklike(lable);
 
 
