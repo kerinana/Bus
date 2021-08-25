@@ -3,7 +3,6 @@ package com.example.bus.busStartTime;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -11,19 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bus.R;
 import com.example.bus.RouteData;
-import com.example.bus.realtimemodel.RealTimeDataItem;
 
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-public class BusStartTime extends AppCompatActivity {
+public class BusStartTime extends AppCompatActivity implements BusStartTimeContract{
 
     BusStartTimePresenter presenter = new BusStartTimePresenter(this);
     String str = "", str2 = "";

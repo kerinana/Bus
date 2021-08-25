@@ -31,8 +31,8 @@ import java.util.List;
 public class SearchBusStation extends AppCompatActivity implements SearchBusStationContract {
 
     private RecyclerView recyclerViewSearchList;
-    EditText edittext;
-    SearchAdapter searchAdapter;
+    private EditText edittext;
+    private SearchAdapter searchAdapter;
 
     private SearchBusPresenter presenter = new SearchBusPresenter(this, this);
 

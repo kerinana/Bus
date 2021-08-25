@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bus.R;
 import com.example.bus.RouteData;
 import com.example.bus.model.RouteEntity;
+import com.example.bus.searchBusStation.SearchAdapter;
 
 import java.util.List;
 import java.util.zip.Inflater;
@@ -28,7 +29,17 @@ public class BusRealTimeAdapter extends RecyclerView.Adapter<BusRealTimeAdapter.
     private final String Routeid;
     private OnOpenDialogListener listener;
     private List<RouteData> routedata;
+    private onItemClickListener clickListener;
 
+
+    public interface onItemClickListener{
+        void  onclic(String stopid,String stopname,String stationid);
+
+    }
+    public  void setOnItemClickListener(onItemClickListener listener){
+        clickListener=listener;
+
+    }
     public void UpDateRoute(List<RouteData> queryResult) {
         routedata = queryResult;
         notifyDataSetChanged();
@@ -110,8 +121,8 @@ public class BusRealTimeAdapter extends RecyclerView.Adapter<BusRealTimeAdapter.
                 public void onClick(View view) {
                     int index = getAdapterPosition();
                     RouteData routeData = routedata.get(index);
-
-                    listener.onOpenDialog();
+                    clickListener.onclic(routeData.getStopID(),routeData.getStopName().getZhTw(),routeData.getStationID());//傳給busrealtime
+                    listener.onOpenDialog();//打開dialog
                 }
             });
 

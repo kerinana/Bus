@@ -31,6 +31,10 @@ public class BusStartTimePresenter {
      * 取得發車資訊
      */
     public void getBusStartTime(String Routeid) {
+
+        /**
+         * 38行要記得拿掉（那是為了紅33資料較少）
+         * */
         Routeid="10261";
         List<StartTimeDataItem> realDataList = realTimeData.getStartTimeData();
 

@@ -15,10 +15,10 @@ import com.example.bus.DialogFragment;
 import com.example.bus.R;
 import com.example.bus.RouteData;
 import com.example.bus.busCrossStation.BusCrossStation;
-import com.example.bus.busCrossStation.busSchedule.BusScheduleDialogFragment;
+import com.example.bus.busSchedule.BusScheduleDialogFragment;
 import com.example.bus.busStartTime.BusStartTime;
 
-import java.util.ArrayList;
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
@@ -27,13 +27,12 @@ import java.util.List;
 public class BusRealTime extends AppCompatActivity implements BusRealTimeContract {
 
     private RecyclerView busRealRecycle;
+    private BusRealPresenter presenter = new BusRealPresenter(this);
     TextView routename;
     DialogFragment dialogFragment;
     BusScheduleDialogFragment scheduleDialogFragment;
-    private BusRealPresenter presenter = new BusRealPresenter(this);
-
-
     BusRealTimeAdapter BusRealTimeadapter;
+    String stopid, stopname, stationid;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +51,16 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
                 dialogFragment
                         .show(getSupportFragmentManager(), "DialogFragment")
         );
+        //傳stopid給buscross
+        BusRealTimeadapter.setOnItemClickListener(new BusRealTimeAdapter.onItemClickListener() {
+
+            //傳stopid給buscross(為了按經此站的功能)
+            public void onclic(String id, String name, String station) {
+                stopid = id;
+                stopname = name;
+                stationid = station;
+            }
+        });
         busRealRecycle = findViewById(R.id.busreal);
         //做RecycleView的Adapter
         busRealRecycle.setAdapter(BusRealTimeadapter);
@@ -60,7 +69,7 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
         dialogFragment = new DialogFragment();
         //做dialog的畫面轉跳
         dialogFragment.setOnItemClickListener(new DialogFragment.onItemClickListener() { //丟事情(就是下面包的東西)給listener做
-            //跳畫面到發車時刻
+            //跳畫面到發車時刻(在聽DialogFragment的發車時刻)
             public void onClickstarttime(View view, final int position) {
                 Intent intent = new Intent(BusRealTime.this, BusStartTime.class);
                 intent.putExtra("RouteID", Routeid);
@@ -68,11 +77,14 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
                 startActivity(intent);
             }
 
-            //跳畫面到經此站的公車
+            //跳畫面到經此站的公車(在聽DialogFragment的經過此站)
             public void onClickscrossbus(View view, final int position) {
                 Intent intent = new Intent(BusRealTime.this, BusCrossStation.class);
+                intent.putExtra("stopid", stopid);
+                intent.putExtra("stopname", stopname);
                 intent.putExtra("RouteID", Routeid);
                 intent.putExtra("Routename", Routename);
+                intent.putExtra("Stationid", stationid);
                 startActivity(intent);
             }
 

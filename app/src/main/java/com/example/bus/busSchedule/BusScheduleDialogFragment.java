@@ -1,14 +1,10 @@
-package com.example.bus.busCrossStation.busSchedule;
- import android.app.Activity;
-import android.os.Bundle;
+package com.example.bus.busSchedule;
+ import android.os.Bundle;
  import android.view.LayoutInflater;
- import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
+ import android.view.View;
  import android.view.ViewGroup;
  import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
  import androidx.annotation.NonNull;
  import androidx.annotation.Nullable;

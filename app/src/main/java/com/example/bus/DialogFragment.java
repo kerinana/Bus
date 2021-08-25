@@ -51,7 +51,6 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
         canclebutton.setOnClickListener(new View.OnClickListener() {//取消
             @Override
             public void onClick(View view) {
-
                 dismiss();
             }
         });

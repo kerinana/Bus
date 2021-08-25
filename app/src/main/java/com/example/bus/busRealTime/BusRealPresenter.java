@@ -45,6 +45,7 @@ public class BusRealPresenter {
                     label1.setDirection(entitytime.getDirection());//去返程
                     label1.setStopID(entitytime.getStops().get(j).getStopID());//路線ＩＤ
                     label1.setStopName(entitytime.getStops().get(j).getStopName());//路線名
+                    label1.setStationID(entitytime.getStops().get(j).getStationID());//station
                     //label1.setStopStatus(entitytime.);
                     //如果是去程就存起來（回程沒存）
                     if (entitytime.getDirection() == 0) querResult.add(label1);//判斷去程

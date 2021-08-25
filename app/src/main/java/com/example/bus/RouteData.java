@@ -30,6 +30,15 @@ public class RouteData {
     String StopID;
     ServiceDay ServiceDay;
     String ArrivalTime;
+    String StationID;
+
+    public String getStationID() {
+        return StationID;
+    }
+
+    public void setStationID(String stationID) {
+        StationID = stationID;
+    }
 
     public com.example.bus.starttimemodel.ServiceDay getServiceDay() {
         return ServiceDay;

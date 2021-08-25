@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
 
-    android:background="@drawable/rightangle_board"
-    android:layout_height="40dp">
+    android:layout_height="40dp"
+    android:background="@drawable/rightangle_board">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -24,8 +24,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
             android:background="@drawable/rightangle_board"
+            android:gravity="center"
             android:text="@string/realtime"
             android:textSize="10sp" />
 
@@ -37,6 +37,7 @@
             android:gravity="center"
             android:text="@string/stationname"
             android:textSize="20sp" />
+
         <TextView
             android:id="@+id/dash"
             android:layout_width="0dp"
@@ -45,6 +46,7 @@
             android:gravity="center"
             android:text="@string/dash"
             android:textSize="20sp" />
+
         <TextView
             android:id="@+id/goroute"
             android:layout_width="0dp"

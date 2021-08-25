@@ -1,7 +1,15 @@
 package com.example.bus.busCrossStation;
 
+import com.example.bus.RouteData;
+
+import java.util.List;
+
 public interface BusCrossStationContract {
 
-    void showCrossBus();//顯示抵達時間、回程和站名
+    /**
+     * 更新畫面
+     * @param templist 經過此路線的所有公車資訊
+     * */
+    void showCrossBus(List<RouteData> templist);
 
 }
