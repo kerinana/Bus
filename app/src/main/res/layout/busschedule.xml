@@ -30,14 +30,15 @@
             android:text="平日" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/weekdays"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="4"
+            android:textSize="20sp"
             android:text="TextView" />
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/textView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
@@ -45,10 +46,11 @@
             android:text="假日" />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/weekend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="4"
+            android:textSize="20sp"
             android:text="TextView" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

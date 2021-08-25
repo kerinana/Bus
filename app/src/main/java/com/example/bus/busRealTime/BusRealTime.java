@@ -30,8 +30,7 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
     TextView routename;
     DialogFragment dialogFragment;
     BusScheduleDialogFragment scheduleDialogFragment;
-    private BusRealPresenter presenter=new BusRealPresenter(this);
-
+    private BusRealPresenter presenter = new BusRealPresenter(this);
 
 
     BusRealTimeAdapter BusRealTimeadapter;
@@ -40,40 +39,41 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        String Routeid=intent.getStringExtra("RouteID");
-        String Routename=intent.getStringExtra("Routename");
-
+        String Routeid = intent.getStringExtra("RouteID");
+        String Routename = intent.getStringExtra("Routename");
 
 
         setContentView(R.layout.busrealtime);
 
-        routename=findViewById(R.id.routename);
+        routename = findViewById(R.id.routename);
         routename.setText(Routename);
 
-        BusRealTimeadapter=new BusRealTimeAdapter(this, Routeid, () ->
+        BusRealTimeadapter = new BusRealTimeAdapter(this, Routeid, () ->
                 dialogFragment
                         .show(getSupportFragmentManager(), "DialogFragment")
         );
         busRealRecycle = findViewById(R.id.busreal);
         //做RecycleView的Adapter
         busRealRecycle.setAdapter(BusRealTimeadapter);
-
-
         busRealRecycle.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
 
         dialogFragment = new DialogFragment();
         //做dialog的畫面轉跳
         dialogFragment.setOnItemClickListener(new DialogFragment.onItemClickListener() { //丟事情(就是下面包的東西)給listener做
             //跳畫面到發車時刻
             public void onClickstarttime(View view, final int position) {
-                startActivity(new Intent(BusRealTime.this, BusStartTime.class));
+                Intent intent = new Intent(BusRealTime.this, BusStartTime.class);
+                intent.putExtra("RouteID", Routeid);
+                intent.putExtra("Routename", Routename);
+                startActivity(intent);
             }
-
 
             //跳畫面到經此站的公車
             public void onClickscrossbus(View view, final int position) {
-                startActivity(new Intent(BusRealTime.this, BusCrossStation.class));
+                Intent intent = new Intent(BusRealTime.this, BusCrossStation.class);
+                intent.putExtra("RouteID", Routeid);
+                intent.putExtra("Routename", Routename);
+                startActivity(intent);
             }
 
             public void onClickschedule(View view, final int position) {
@@ -85,7 +85,7 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
 
         });
         //回程按鈕
-        Button backroute =findViewById(R.id.backroute);
+        Button backroute = findViewById(R.id.backroute);
         backroute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,7 +93,7 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
             }
         });
         //去程按鈕
-        Button goroute =findViewById(R.id.goroute);
+        Button goroute = findViewById(R.id.goroute);
         goroute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,7 +103,6 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
         scheduleDialogFragment = new BusScheduleDialogFragment();
         presenter.getgoRouteInfo(Routeid);
     }
-
 
 
     @Override
@@ -118,25 +117,28 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
 
     /**
      * 顯示路線的時間和站牌
-     * */
+     */
     public void showRealtime(List<RouteData> queryResult) {
         //更新路線(stop)
-        BusRealTimeadapter.UpDateRoute( queryResult);
+        BusRealTimeadapter.UpDateRoute(queryResult);
     }
 
 
-    public void dotimecaculate(){  //算距離抵達時間還要多久、監聽busscheduledialogfragment是按幾分鐘
-        scheduleDialogFragment.setOnItemClickListener(new BusScheduleDialogFragment.onItemClickListener(){
+    public void dotimecaculate() {  //算距離抵達時間還要多久、監聽busscheduledialogfragment是按幾分鐘
+        scheduleDialogFragment.setOnItemClickListener(new BusScheduleDialogFragment.onItemClickListener() {
 
             public void onClickthree(View view, final int position) { //三分鐘
                 startActivity(new Intent(BusRealTime.this, BusStartTime.class));
             }
+
             public void onClickfive(View view, final int position) { //五分鐘
                 startActivity(new Intent(BusRealTime.this, BusStartTime.class));
             }
+
             public void onClickseven(View view, final int position) {//七分鐘
                 startActivity(new Intent(BusRealTime.this, BusStartTime.class));
             }
+
             public void onClickeleven(View view, final int position) { //十一分鐘
                 startActivity(new Intent(BusRealTime.this, BusStartTime.class));
             }

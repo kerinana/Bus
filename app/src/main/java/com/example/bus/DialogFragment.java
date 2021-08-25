@@ -21,16 +21,19 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
     }
 
 
-
     public interface onItemClickListener {
         void onClickstarttime(View view, int position);
+
         void onClickscrossbus(View view, int position);
+
         void onClickschedule(View view, int position);
 
     }
+
     public void setOnItemClickListener(DialogFragment.onItemClickListener listener) {
         this.clickListener = listener;
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,17 +41,17 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
         //getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);//刪除空白
         rootView = inflater.inflate(R.layout.dialoglist, null);
 
-        int position=1;//假資料
+        int position = 1;//假資料
 
-        Button canclebutton=rootView.findViewById(R.id.cancel);
-        Button starttime=rootView.findViewById(R.id.button2);
-        Button cross=rootView.findViewById(R.id.button3);
-        Button alert=rootView.findViewById(R.id.button4);
+        Button canclebutton = rootView.findViewById(R.id.cancel);
+        Button starttime = rootView.findViewById(R.id.button2);
+        Button cross = rootView.findViewById(R.id.button3);
+        Button alert = rootView.findViewById(R.id.button4);
 
         canclebutton.setOnClickListener(new View.OnClickListener() {//取消
             @Override
             public void onClick(View view) {
-                //Intent intent=inflater.inflate(Dialog.this,)
+
                 dismiss();
             }
         });
@@ -56,14 +59,15 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
         starttime.setOnClickListener(new View.OnClickListener() {//發車時刻
             @Override
             public void onClick(View view) {
-                clickListener.onClickstarttime(view,position);
+                clickListener.onClickstarttime(view, position);
+
             }
         });
 
         cross.setOnClickListener(new View.OnClickListener() {//經此站公車
             @Override
             public void onClick(View view) {
-                clickListener.onClickscrossbus(view,position);
+                clickListener.onClickscrossbus(view, position);
 
             }
         });
@@ -71,10 +75,9 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
         alert.setOnClickListener(new View.OnClickListener() {//到站提醒
             @Override
             public void onClick(View view) {
-                clickListener.onClickschedule(view,position);
+                clickListener.onClickschedule(view, position);
             }
         });
-
 
 
         return rootView;

@@ -33,32 +33,8 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
     private RecyclerView recyclerViewSearchList;
     EditText edittext;
     SearchAdapter searchAdapter;
-    int flag = 0;
-    List<RouteData> labels = new ArrayList<>();
 
-    private SearchBusPresenter presenter = new SearchBusPresenter(this,this);
-
-    //進來判斷字串和資料有沒有一樣
-    private List<RouteData> getLabels() {
-
-
-        RouteDataSource dataSource = new RouteDataSource();//資料
-        RouteData label1;
-        if (flag == 0) {
-            flag = 1;
-        } else {
-            for (RouteEntity entity : dataSource.getRouteEntityList()) {
-                label1 = new RouteData();
-
-                if (entity.getRouteName().getZhTw().startsWith(edittext.getText().toString())) {
-                    label1.setRouteName(entity.getRouteName().getZhTw());
-                    labels.add(label1);
-                }
-            }
-        }
-
-        return labels;
-    }
+    private SearchBusPresenter presenter = new SearchBusPresenter(this, this);
 
 
     @Override
@@ -74,18 +50,20 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
         searchAdapter = new SearchAdapter(this);
         searchAdapter.setOnItemClickListener(new SearchAdapter.onItemClickListener() { //丟事情(就是下面包的東西)給listener
             @Override
-            public void onClickHello(String id,String name) {//(做畫面轉跳，跳到公車動態)
-                Log.d("TEST","onClickHello");
-               Intent intent= new Intent(SearchBusStation.this, BusRealTime.class);
-               intent.putExtra("RouteID",id);
-                intent.putExtra("Routename",name);
+            public void onClickHello(String id, String name) {//(做畫面轉跳，跳到公車動態)
+                Log.d("TEST", "onClickHello");
+                Intent intent = new Intent(SearchBusStation.this, BusRealTime.class);
+                intent.putExtra("RouteID", id);
+                intent.putExtra("Routename", name);
                 //intent.putExtra("stopID",id);
-               startActivity(intent);
+                startActivity(intent);
             }
+
             //按下星星
             public void onClicklike(RouteData data) {
-               presenter.addToLike(data);
+                presenter.addToLike(data);
             }
+
             //按下取消星星
             public void onClicklikecancel(String position) {
                 presenter.cancellike(position);
@@ -113,7 +91,7 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
 
             @Override
             public void afterTextChanged(Editable s) {//"最終內容：" + s.toString());
-                Log.d("TEST","afterTextChanged "+s.toString());
+                Log.d("TEST", "afterTextChanged " + s.toString());
                 presenter.doSearch(s.toString());
             }
         });
@@ -123,7 +101,9 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
         presenter.getBusInfo();
     }
 
-
+    /**
+     * 更新搜尋畫面
+     */
     @Override
     public void showSearchResult(List<RouteData> routeEntityList) {
 
