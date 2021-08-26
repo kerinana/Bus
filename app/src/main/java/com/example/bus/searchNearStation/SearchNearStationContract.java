@@ -1,7 +1,16 @@
 package com.example.bus.searchNearStation;
 
+import com.example.bus.RouteData;
+
+import java.util.List;
+
 public interface SearchNearStationContract {
 
-    void showMap();
+    /**
+     * 顯示附近公車站牌
+     *
+     * @param nearStation 附近的所有站牌
+     */
+    void showNearStation(List<RouteData> nearStation);
 
 }

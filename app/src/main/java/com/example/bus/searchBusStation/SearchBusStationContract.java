@@ -9,6 +9,7 @@ public interface SearchBusStationContract {
 
     /**
      * 顯示查詢結果
+     *
      * @param routeEntityList 要顯示在畫面上的資訊
      */
     void showSearchResult(List<RouteData> routeEntityList);

@@ -54,9 +54,9 @@ public class SearchBusPresenter {
             String likedata = pref.getString(PREF_KEY_BUS_FAVORITE_ROUTE, "[]");//第二格是找不到PREF_KEY_BUS_FAVORITE_ROUTE時，回傳[]
             Type routeEntityTypeToken = TypeToken.getParameterized(List.class, com.example.bus.RouteData.class).getType();
             alterSamples = gson.fromJson(likedata, routeEntityTypeToken);
-            for(int i=0;i<alterSamples.size();i++){
+            for (int i = 0; i < alterSamples.size(); i++) {
                 //如果在我的最愛清單中就把它存true
-                if(alterSamples.get(i).getRouteName().equals(entity.getRouteName().getZhTw())){
+                if (alterSamples.get(i).getRouteName().equals(entity.getRouteName().getZhTw())) {
                     label1.setLike(true);
                     break;
                 }
@@ -98,45 +98,47 @@ public class SearchBusPresenter {
     @SuppressLint("ApplySharedPref")
     public void addToLike(RouteData data) {
 
-                boolean flag=true;
-                Gson gson = new Gson();
+        boolean flag = true;
+        Gson gson = new Gson();
 
-                //拿list轉為json，即可儲存到SharedPreferences中
-                List<RouteData> alterSamples;
-                //讀檔
-                SharedPreferences pref = context.getSharedPreferences(PREF_NAME_BUS_APP_DATA, MODE_PRIVATE);
-                //把資料從SharedPreferences取出來
-                String likedata = pref.getString(PREF_KEY_BUS_FAVORITE_ROUTE, "[]");//第二格是找不到PREF_KEY_BUS_FAVORITE_ROUTE時，回傳[]
-                //把格式轉成List<Routedata>的格式
-                Type routeEntityTypeToken = TypeToken.getParameterized(List.class, com.example.bus.RouteData.class).getType();
-                alterSamples = gson.fromJson(likedata, routeEntityTypeToken);
+        //拿list轉為json，即可儲存到SharedPreferences中
+        List<RouteData> alterSamples;
+        //讀檔
+        SharedPreferences pref = context.getSharedPreferences(PREF_NAME_BUS_APP_DATA, MODE_PRIVATE);
+        //把資料從SharedPreferences取出來
+        String likedata = pref.getString(PREF_KEY_BUS_FAVORITE_ROUTE, "[]");//第二格是找不到PREF_KEY_BUS_FAVORITE_ROUTE時，回傳[]
+        //把格式轉成List<Routedata>的格式
+        Type routeEntityTypeToken = TypeToken.getParameterized(List.class, com.example.bus.RouteData.class).getType();
+        alterSamples = gson.fromJson(likedata, routeEntityTypeToken);
 
-                //  判斷資料相同時，不做下面的if（就是不加入新資料）
-                for(int i=0;i<alterSamples.size();i++){
-                    if(alterSamples.get(i).getRouteName().equals(data.getRouteName())){
-                        flag=false;
-                    };
-                }
-                //把新的資料加入舊的清單中
-                if(flag) {
-                    alterSamples.add(data);
+        //  判斷資料相同時，不做下面的if（就是不加入新資料）
+        for (int i = 0; i < alterSamples.size(); i++) {
+            if (alterSamples.get(i).getRouteName().equals(data.getRouteName())) {
+                flag = false;
+            }
+            ;
+        }
+        //把新的資料加入舊的清單中
+        if (flag) {
+            alterSamples.add(data);
 
 
-                    SharedPreferences.Editor editor = context.getSharedPreferences(PREF_NAME_BUS_APP_DATA, MODE_PRIVATE).edit();
+            SharedPreferences.Editor editor = context.getSharedPreferences(PREF_NAME_BUS_APP_DATA, MODE_PRIVATE).edit();
 
-                    //把alterSamples轉成json
-                    String json = gson.toJson(alterSamples);
+            //把alterSamples轉成json
+            String json = gson.toJson(alterSamples);
 
-                    //放進editor
-                    editor.putString(PREF_KEY_BUS_FAVORITE_ROUTE, json);
-                    editor.commit();
-                }
+            //放進editor
+            editor.putString(PREF_KEY_BUS_FAVORITE_ROUTE, json);
+            editor.commit();
+        }
 
     }
 
     /**
      * 取消星星(存進sharepreference)
-     * @param  routename 為要刪除的routename
+     *
+     * @param routename 為要刪除的routename
      */
     public void cancellike(String routename) {
 
@@ -153,8 +155,8 @@ public class SearchBusPresenter {
         alterSamples = gson.fromJson(likedata, routeEntityTypeToken);
 
         //找清單中的第幾個和要刪除的資料一樣
-        for(i=0;i<alterSamples.size();i++){
-            if(alterSamples.get(i).getRouteName().equals(routename)) break;
+        for (i = 0; i < alterSamples.size(); i++) {
+            if (alterSamples.get(i).getRouteName().equals(routename)) break;
 
         }
         //把要刪除的刪掉

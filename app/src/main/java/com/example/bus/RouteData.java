@@ -31,6 +31,33 @@ public class RouteData {
     ServiceDay ServiceDay;
     String ArrivalTime;
     String StationID;
+    Double PositionLon;
+    Double PositionLat;
+    String StationAddress;
+
+    public String getStationAddress() {
+        return StationAddress;
+    }
+
+    public void setStationAddress(String stationAddress) {
+        StationAddress = stationAddress;
+    }
+
+    public Double getPositionLon() {
+        return PositionLon;
+    }
+
+    public void setPositionLon(Double positionLon) {
+        PositionLon = positionLon;
+    }
+
+    public Double getPositionLat() {
+        return PositionLat;
+    }
+
+    public void setPositionLat(Double positionLat) {
+        PositionLat = positionLat;
+    }
 
     public String getStationID() {
         return StationID;

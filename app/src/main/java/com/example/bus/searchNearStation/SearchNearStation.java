@@ -19,6 +19,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.bus.R;
+import com.example.bus.RouteData;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationCallback;
@@ -28,6 +29,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,7 +45,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  */
 // [START maps_marker_on_map_ready]
 public class SearchNearStation extends AppCompatActivity
-        implements OnMapReadyCallback, EasyPermissions.PermissionCallbacks, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+        implements OnMapReadyCallback, EasyPermissions.PermissionCallbacks, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, SearchNearStationContract {
 
     // [START_EXCLUDE]
     // [START maps_marker_get_map_async]
@@ -52,7 +54,7 @@ public class SearchNearStation extends AppCompatActivity
     private LocationCallback locationCallback;
     private GoogleApiClient mGoogleApiClient;
     private GoogleMap mMap;
-    LatLng sydney;
+    SearchNearBusPresenter presenter = new SearchNearBusPresenter(this);
 
 
     @Override
@@ -62,7 +64,6 @@ public class SearchNearStation extends AppCompatActivity
 
         EasyPermissions.requestPermissions(this, "可以給我權限ㄇ", 1000, Manifest.permission.ACCESS_FINE_LOCATION);
     }
-
 
 
     /**
@@ -135,14 +136,12 @@ public class SearchNearStation extends AppCompatActivity
         //如果不是null讓畫面移到那裡
         if (location != null) {
             Log.i("LOCATION", location.getLatitude() + "/" + location.getLongitude());
-            LatLng now=new LatLng(location.getLatitude(), location.getLongitude());
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(now ,15));
+            LatLng now = new LatLng(location.getLatitude(), location.getLongitude());
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(now, 15));
             mMap.addMarker(new MarkerOptions()
                     .position(now)
-                .title("現在位置"));
+                    .title("現在位置"));
         }
-
-
 
 
     }
@@ -176,7 +175,6 @@ public class SearchNearStation extends AppCompatActivity
     }
 
 
-
     //放取得的位置程式碼放這
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -188,11 +186,9 @@ public class SearchNearStation extends AppCompatActivity
         LocationServices.getFusedLocationProviderClient(this).getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                if(location!= null){
-                     //sydney= new LatLng(location.getLatitude(), location.getLongitude());
-                    //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
-                    LatLng now=new LatLng(location.getLatitude(), location.getLongitude());
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(now ,15));
+                if (location != null) {
+                    LatLng now = new LatLng(location.getLatitude(), location.getLongitude());
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(now, 15));
                     mMap.addMarker(new MarkerOptions()
                             .position(now)
                             .title("現在位置"));
@@ -200,10 +196,34 @@ public class SearchNearStation extends AppCompatActivity
             }
         });
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        presenter.getNearBus();
     }
+
+    /**
+     * @param nearStation 附近所有的站牌
+     */
+    @Override
+    public void showNearStation(List<RouteData> nearStation) {
+
+        for (int i = 0; i < nearStation.size(); i++) {
+            LatLng sydney = new LatLng(nearStation.get(i).getPositionLat(), nearStation.get(i).getPositionLon());
+            this.mMap.addMarker(new MarkerOptions()
+                    .position(sydney)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
+                    .title(nearStation.get(i).getStopName().getZhTw()))
+                    .setSnippet(nearStation.get(i).getStationAddress());
+
+            // [START_EXCLUDE silent]
+            this.mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        }
+
+    }
+
+
     @Override
     public void onConnectionSuspended(int i) {
 
@@ -213,4 +233,5 @@ public class SearchNearStation extends AppCompatActivity
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
 }
