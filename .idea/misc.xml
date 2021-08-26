@@ -14,11 +14,13 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33242753623188404" />
         <entry key="app/src/main/res/layout/alertdialogfragment.xml" value="0.25" />
         <entry key="app/src/main/res/layout/alertmenue.xml" value="0.1953125" />
+        <entry key="app/src/main/res/layout/bus_maps.xml" value="0.375" />
         <entry key="app/src/main/res/layout/buscrossatation.xml" value="0.23125" />
         <entry key="app/src/main/res/layout/buscrossstationlist.xml" value="0.375" />
         <entry key="app/src/main/res/layout/busrealtime.xml" value="0.25" />
         <entry key="app/src/main/res/layout/busrealtimelist.xml" value="0.375" />
         <entry key="app/src/main/res/layout/busschedule.xml" value="0.23125" />
+        <entry key="app/src/main/res/layout/custom_info_contents.xml" value="0.18489583333333334" />
         <entry key="app/src/main/res/layout/dialoglist.xml" value="0.2125" />
         <entry key="app/src/main/res/layout/head.xml" value="0.33242753623188404" />
         <entry key="app/src/main/res/layout/likelist.xml" value="0.28610354223433243" />
@@ -27,6 +29,7 @@
         <entry key="app/src/main/res/layout/search.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/layout/searchbusstation.xml" value="0.25" />
         <entry key="app/src/main/res/layout/tempdialod.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/menu/custom_info_contents.xml" value="0.18489583333333334" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.1953125" />
       </map>
     </option>

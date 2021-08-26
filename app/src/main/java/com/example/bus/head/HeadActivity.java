@@ -18,6 +18,7 @@ import com.example.bus.model.RouteDataSource;
 import com.example.bus.model.RouteEntity;
 import com.example.bus.searchBusStation.SearchAdapter;
 import com.example.bus.searchBusStation.SearchBusStation;
+import com.example.bus.searchNearStation.SearchNearStation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,20 +32,6 @@ public class HeadActivity extends AppCompatActivity implements HeadContract {
     LikeAdapter likeAdapter = new LikeAdapter(this);
     //HeadPresent present;
 
-    private List<RouteData> getLabels() {
-        List<RouteData> labels = new ArrayList<>();
-        //用資料
-        RouteDataSource dataSource = new RouteDataSource();
-        for (RouteEntity entity : dataSource.getRouteEntityList()) {
-            RouteData label1 = new RouteData();
-            label1.setRouteID(entity.getRouteID());
-            label1.setDepartureStopNameZh(entity.getDepartureStopNameZh());
-            label1.setDestinationStopNameZh(entity.getDestinationStopNameZh());
-            label1.setRouteName(entity.getRouteName().getZhTw());
-            labels.add(label1);
-        }
-        return labels;
-    }
 
 
     @Override
@@ -52,6 +39,15 @@ public class HeadActivity extends AppCompatActivity implements HeadContract {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.head);
 
+
+        Button nearbutton=findViewById(R.id.tosearchnearstationbutton);
+        nearbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HeadActivity.this, SearchNearStation.class);
+                startActivity(intent);
+            }
+        });
         //我的最愛清單
         recyclerViewSearchList = findViewById(R.id.mylikelist);
         recyclerViewSearchList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));//表示列表是垂直往下

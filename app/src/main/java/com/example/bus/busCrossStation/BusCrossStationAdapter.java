@@ -63,7 +63,6 @@ public class BusCrossStationAdapter extends RecyclerView.Adapter<BusCrossStation
     public class BusCrossStationViewHolder extends RecyclerView.ViewHolder {
 
         TextView realtime, stationname, goroute;
-        //int t = 1;//假
 
         public BusCrossStationViewHolder(@NonNull View itemView) {
             super(itemView);
