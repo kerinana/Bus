@@ -40,6 +40,7 @@ public class BusCrossStation extends AppCompatActivity implements BusCrossStatio
         String Routeid = intent.getStringExtra("RouteID");
         String Routename = intent.getStringExtra("Routename");
         String Stationid = intent.getStringExtra("Stationid");
+        int direceion =intent.getIntExtra("Direction",0);
 
         TextView stationname = findViewById(R.id.station);
         stationname.setText(stopname);
@@ -60,7 +61,7 @@ public class BusCrossStation extends AppCompatActivity implements BusCrossStatio
             }
         });
         busCrossRecycle.setAdapter(busCrossStationAdapter);
-        presenter.getcross(Stationid);
+        presenter.getcross(Stationid,stopid,direceion);
 
 
     }

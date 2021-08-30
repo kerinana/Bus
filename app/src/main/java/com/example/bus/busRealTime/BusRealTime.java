@@ -33,6 +33,7 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
     BusScheduleDialogFragment scheduleDialogFragment;
     BusRealTimeAdapter BusRealTimeadapter;
     String stopid, stopname, stationid;
+    int direction;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,10 +56,11 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
         BusRealTimeadapter.setOnItemClickListener(new BusRealTimeAdapter.onItemClickListener() {
 
             //傳stopid給buscross(為了按經此站的功能)
-            public void onclic(String id, String name, String station) {
+            public void onclic(String id, String name, String station, int directionid) {
                 stopid = id;
                 stopname = name;
                 stationid = station;
+                direction = directionid;
             }
         });
         busRealRecycle = findViewById(R.id.busreal);
@@ -85,6 +87,7 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
                 intent.putExtra("RouteID", Routeid);
                 intent.putExtra("Routename", Routename);
                 intent.putExtra("Stationid", stationid);
+                intent.putExtra("Direction", direction);
                 startActivity(intent);
             }
 
@@ -101,7 +104,7 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
         backroute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.getbackRouteInfo(Routeid,1);
+                presenter.getbackRouteInfo(Routeid, 1);
             }
         });
         //去程按鈕
@@ -109,11 +112,11 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
         goroute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.getgoRouteInfo(Routeid,0);
+                presenter.getgoRouteInfo(Routeid, 0);
             }
         });
         scheduleDialogFragment = new BusScheduleDialogFragment();
-        presenter.getgoRouteInfo(Routeid,0);
+        presenter.getgoRouteInfo(Routeid, 0);
     }
 
 

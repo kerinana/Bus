@@ -50,9 +50,33 @@ public class BusCrossStationAdapter extends RecyclerView.Adapter<BusCrossStation
     @Override
     public void onBindViewHolder(@NonNull BusCrossStationViewHolder holder, int position) {
         RouteData routeitem = routedata.get(position);
-        holder.realtime.setText("" + routeitem.getEstimateTime() / 60 + "分");
-        holder.stationname.setText((CharSequence) routeitem.getRouteName());
-        holder.goroute.setText("往" + (CharSequence) routeitem.getDestinationStopNameZh());
+
+
+        //判斷車子狀態
+        if (routeitem.getStopStatus() == 0 ) {//狀態為正常
+            //如果預估時間=0
+            if(routeitem.getEstimateTime() < 1){
+                holder.realtime.setText("進站中");
+            }
+            else{
+                holder.realtime.setText(" " + routeitem.getEstimateTime()/60 + "分");
+            }
+        } else if (routeitem.getStopStatus() == 1) { //1:'尚未發車
+            if(routeitem.getEstimateTime() == 0) holder.realtime.setText("尚未發車");
+            else holder.realtime.setText(" " + routeitem.getEstimateTime()/60 + "分");
+
+        }else if (routeitem.getStopStatus() == 2) {
+            holder.realtime.setText("交管不停靠");
+        }else if (routeitem.getStopStatus() == 3) {
+            holder.realtime.setText("末班車已過");
+        }else if (routeitem.getStopStatus() == 4) {
+            holder.realtime.setText("今日未營運");
+        }
+
+        //holder.realtime.setText("" + routeitem.getEstimateTime() / 60 + "分");
+        holder.stationname.setText((CharSequence) routeitem.getRouteName().getZhTw());
+        if(routeitem.getDirection()==0)holder.goroute.setText("往" + (CharSequence) routeitem.getDestinationStopNameZh());
+        else holder.goroute.setText("往" + (CharSequence) routeitem.getDepartureStopNameZh());
     }
 
     @Override

@@ -34,7 +34,7 @@ public class BusRealTimeAdapter extends RecyclerView.Adapter<BusRealTimeAdapter.
 
 
     public interface onItemClickListener{
-        void  onclic(String stopid,String stopname,String stationid);
+        void  onclic(String stopid,String stopname,String stationid,int direction);
 
     }
     public  void setOnItemClickListener(onItemClickListener listener){
@@ -123,7 +123,7 @@ public class BusRealTimeAdapter extends RecyclerView.Adapter<BusRealTimeAdapter.
                 public void onClick(View view) {
                     int index = getAdapterPosition();
                     RouteData routeData = routedata.get(index);
-                    clickListener.onclic(routeData.getStopID(),routeData.getStopName().getZhTw(),routeData.getStationID());//傳給busrealtime
+                    clickListener.onclic(routeData.getStopID(),routeData.getStopName().getZhTw(),routeData.getStationID(),routeData.getDirection());//傳給busrealtime
                     listener.onOpenDialog();//打開dialog
                 }
             });

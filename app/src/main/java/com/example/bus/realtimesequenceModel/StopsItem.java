@@ -24,6 +24,27 @@ public class StopsItem{
 
 	@SerializedName("StopSequence")
 	private int stopSequence;
+	@SerializedName("RouteName")
+	private RouteName RouteName;
+
+	@SerializedName("RouteID")
+	private String RouteID;
+
+	public com.example.bus.realtimesequenceModel.RouteName getRouteName() {
+		return RouteName;
+	}
+
+	public void setRouteName(com.example.bus.realtimesequenceModel.RouteName routeName) {
+		RouteName = routeName;
+	}
+
+	public String getRouteID() {
+		return RouteID;
+	}
+
+	public void setRouteID(String routeID) {
+		RouteID = routeID;
+	}
 
 	public StopName getStopName(){
 		return stopName;

@@ -42,7 +42,7 @@ public class BusRealPresenter {
                             label1.setStopID(entitytime.getStops().get(j).getStopID());//路線ＩＤ
                             label1.setStopName(entitytime.getStops().get(j).getStopName());//路線名
                             label1.setStationID(entitytime.getStops().get(j).getStationID());//station
-                            querResult.add(label1);//判斷去程
+                            querResult.add(label1);
                         }
                         break;
                     }
