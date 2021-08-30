@@ -2,10 +2,10 @@ package com.example.bus;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.util.Log;
 
-import androidx.annotation.RequiresApi;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -22,26 +22,50 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.zip.GZIPInputStream;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-public class SignatureTest {
-    String result;
-
-    // 取得當下UTC時間
-    public static String getServerTime() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
-        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-        return dateFormat.format(calendar.getTime());
-    }
+public class PTXService {
 
 
     //Model
 
-    //轉格式，得到一串紅9的資料
+    /***API invoker***/
+
+    //路徑資料
     public void getRouteData(String routeName, DataCallback<List<RouteData>> callback) {
         requestRouteDataByRouteName("Taipei", routeName, new RequestCallback() {
+            @Override
+            public void onSuccess(String json) {
+                Gson gson = new Gson();
+                Type routeEntityTypeToken = TypeToken.getParameterized(List.class, RouteData.class).getType();
+                List<RouteData> result = gson.fromJson(json, routeEntityTypeToken);
+                callback.onSuccess(result);
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+                callback.onFailure(errorMessage);
+            }
+        });
+    }
+
+    //預估時間
+    public void getRouteTimeData(String routeID, DataCallback<List<RouteData>> callback) {
+        requestRouteTimeDataByRouteID("Taipei", routeID, new RequestCallback() {
+            @Override
+            public void onSuccess(String json) {
+                Gson gson = new Gson();
+                Type routeEntityTypeToken = TypeToken.getParameterized(List.class, RouteData.class).getType();
+                List<RouteData> result = gson.fromJson(json, routeEntityTypeToken);
+                callback.onSuccess(result);
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+                callback.onFailure(errorMessage);
+            }
+        });
+    }
+    public void getRouteSequenDataById(String routeId, DataCallback<List<RouteData>> callback) {
+        requestRouteSequenDataByRouteID("Taipei", routeId, new RequestCallback() {
             @Override
             public void onSuccess(String json) {
                 Gson gson = new Gson();
@@ -58,31 +82,42 @@ public class SignatureTest {
 
     }
 
-    //去網路抓資料，以routename為搜尋的
-    public void requestRouteDataByRouteName(String city, String routeName, RequestCallback callback) {
+    /***Url Generate***/
+
+    //去網路抓資料，以routeid為搜尋的，抓時間
+    private void requestRouteTimeDataByRouteID(String city, String routeID, RequestCallback callback) {
+        String filter = "RouteID eq " + "'" + routeID + "'";
+        String url = "https://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/City/" + city + "?$filter=" + filter + "&$format=JSON";
+        request(url, callback);
+    }
+    //抓順序
+    private void requestRouteSequenDataByRouteID(String city, String routeID, RequestCallback callback) {
+        String filter = "RouteID eq " + "'" + routeID + "'";
+        String url = "https://ptx.transportdata.tw/MOTC/v2/Bus/DisplayStopOfRoute/City/" + city + "?$filter=" + filter + "&$format=JSON";
+        request(url, callback);
+    }
+    //去網路抓資料，以routename為搜尋的，抓路線名
+    private void requestRouteDataByRouteName(String city, String routeName, RequestCallback callback) {
         String url = "https://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/" + city + "/" + routeName + "?$format=JSON";
         request(url, callback);
     }
 
 
-    public List<RouteData> requestRouteDataByRouteID(String routeId) {
-        return null;
-    }
+    /****Network Request*****/
 
-
-    public void request(String apiUrl, RequestCallback callback) {
+    private void request(String apiUrl, RequestCallback callback) {
         RequestAsyncTask task = new RequestAsyncTask(apiUrl, callback);
         task.execute();
     }
 
     @SuppressLint("StaticFieldLeak")
-    static class RequestAsyncTask extends AsyncTask<String, Void, String> {
+    private static class RequestAsyncTask extends AsyncTask<String, Void, String> {
 
-        private final WeakReference<RequestCallback> callbackWeakReference;
+        private  RequestCallback callback;
         private final String apiUrl;
 
         public RequestAsyncTask(String apiUrl, RequestCallback callback) {
-            this.callbackWeakReference = new WeakReference<>(callback);
+            this.callback = callback;
             this.apiUrl = apiUrl;
         }
 
@@ -161,28 +196,30 @@ public class SignatureTest {
             return "";
         }
 
-        @Override
+        // 取得當下UTC時間
+        public static String getServerTime() {
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+            dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+            return dateFormat.format(calendar.getTime());
+        }
+
+
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            RequestCallback callback = callbackWeakReference.get();
-            if (callback != null) {
+            if(s.isEmpty()){
+                callback.onFailure("can't receive data");
+            } else {
                 callback.onSuccess(s);
             }
+            callback = null;
         }
     }
 
     //網路請求Callback
-    interface RequestCallback {
+    private interface RequestCallback {
         void onSuccess(String json);
 
         void onFailure(String errorMessage);
     }
-
-    //取得物件Callback
-    public interface DataCallback<T> {
-        void onSuccess(T data);
-
-        void onFailure(String errorMessage);
-    }
-
 }

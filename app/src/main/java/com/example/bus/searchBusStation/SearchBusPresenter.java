@@ -8,14 +8,11 @@ import static com.example.bus.Const.PREF_NAME_BUS_APP_DATA;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 
-import androidx.annotation.RequiresApi;
-
+import com.example.bus.DataCallback;
+import com.example.bus.PTXService;
 import com.example.bus.RouteData;
-import com.example.bus.SignatureTest;
 import com.example.bus.model.RouteDataSource;
-import com.example.bus.model.RouteEntity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -26,7 +23,7 @@ import java.util.List;
 public class SearchBusPresenter {
     private final Context context;
     private final SearchBusStationContract view;
-    SignatureTest signtest = new SignatureTest();
+    private PTXService ptxService = new PTXService();
     List<RouteData> routeDataList = new ArrayList<>();
     // 查詢結果
     private final List<RouteData> queryResult = new ArrayList<>();
@@ -84,7 +81,7 @@ public class SearchBusPresenter {
      * @param input 搜尋的輸入字串
      */
     public void doSearch(String input) {
-        signtest.getRouteData(input, new SignatureTest.DataCallback<List<RouteData>>() {
+        ptxService.getRouteData(input, new DataCallback<List<RouteData>>() {
             @Override
             public void onSuccess(List<RouteData> data) {
                 routeDataList.clear();

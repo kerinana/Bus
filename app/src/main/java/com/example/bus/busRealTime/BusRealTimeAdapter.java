@@ -15,6 +15,7 @@ import com.example.bus.RouteData;
 import com.example.bus.model.RouteEntity;
 import com.example.bus.searchBusStation.SearchAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
 
@@ -28,7 +29,7 @@ public class BusRealTimeAdapter extends RecyclerView.Adapter<BusRealTimeAdapter.
     private final Context context;
     private final String Routeid;
     private OnOpenDialogListener listener;
-    private List<RouteData> routedata;
+    private List<RouteData> routedata = new ArrayList<>();
     private onItemClickListener clickListener;
 
 
@@ -41,7 +42,8 @@ public class BusRealTimeAdapter extends RecyclerView.Adapter<BusRealTimeAdapter.
 
     }
     public void UpDateRoute(List<RouteData> queryResult) {
-        routedata = queryResult;
+        routedata.clear();
+        routedata.addAll(queryResult);
         notifyDataSetChanged();
     }
 
@@ -78,7 +80,7 @@ public class BusRealTimeAdapter extends RecyclerView.Adapter<BusRealTimeAdapter.
         //判斷車子狀態
         if (routeitem.getStopStatus() == 0 ) {//狀態為正常
             //如果預估時間=0
-            if(routeitem.getEstimateTime() == 1){
+            if(routeitem.getEstimateTime() < 1){
                 holder.realtime.setText("進站中");
             }
             else{

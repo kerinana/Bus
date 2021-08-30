@@ -12,9 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bus.PTXService;
 import com.example.bus.R;
 import com.example.bus.RouteData;
-import com.example.bus.SignatureTest;
 import com.example.bus.busRealTime.BusRealTime;
 import com.example.bus.searchBusStation.SearchBusStation;
 import com.example.bus.searchNearStation.SearchNearStation;
@@ -29,7 +29,7 @@ public class HeadActivity extends AppCompatActivity implements HeadContract {
     List<RouteData> test = new ArrayList<>();
     HeadPresent present = new HeadPresent(this, this);
     LikeAdapter likeAdapter = new LikeAdapter(this);
-    SignatureTest signtest = new SignatureTest();
+    PTXService service = new PTXService();
     //HeadPresent present;
 
 

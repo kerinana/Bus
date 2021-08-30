@@ -3,6 +3,7 @@ package com.example.bus;
 //import com.example.bus.realtimemodel.StopName;
 import com.example.bus.realtimesequenceModel.RouteName;
 import com.example.bus.realtimesequenceModel.StopName;
+import com.example.bus.realtimesequenceModel.StopsItem;
 import com.example.bus.starttimemodel.ServiceDay;
 
 import java.time.format.DateTimeFormatter;
@@ -38,6 +39,15 @@ public class RouteData {
     Double PositionLon;
     Double PositionLat;
     String StationAddress;
+    List<StopsItem> Stops;
+
+    public List<StopsItem> getStops() {
+        return Stops;
+    }
+
+    public void setStops(List<StopsItem> stops) {
+        Stops = stops;
+    }
 
     public String getStationAddress() {
         return StationAddress;

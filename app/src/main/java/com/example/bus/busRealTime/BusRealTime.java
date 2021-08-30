@@ -101,7 +101,7 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
         backroute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.getbackRouteInfo(Routeid);
+                presenter.getbackRouteInfo(Routeid,1);
             }
         });
         //去程按鈕
@@ -109,11 +109,11 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
         goroute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.getgoRouteInfo(Routeid);
+                presenter.getgoRouteInfo(Routeid,0);
             }
         });
         scheduleDialogFragment = new BusScheduleDialogFragment();
-        presenter.getgoRouteInfo(Routeid);
+        presenter.getgoRouteInfo(Routeid,0);
     }
 
 
