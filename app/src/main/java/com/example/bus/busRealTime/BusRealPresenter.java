@@ -41,7 +41,7 @@ public class BusRealPresenter {
                 //存每個站牌資料
                 for (int j = 0; j < entitytime.getStops().size(); j++) {
                     label1 = new RouteData();
-                    label1.setRouteName(entitytime.getRouteName().getZhTw());//紅9 紅25
+                    label1.setRouteName(entitytime.getRouteName());//紅9 紅25
                     label1.setDirection(entitytime.getDirection());//去返程
                     label1.setStopID(entitytime.getStops().get(j).getStopID());//路線ＩＤ
                     label1.setStopName(entitytime.getStops().get(j).getStopName());//路線名
@@ -92,7 +92,7 @@ public class BusRealPresenter {
                 //存每個站牌資料
                 for (int j = 0; j < entitytime.getStops().size(); j++) {
                     label1 = new RouteData();
-                    label1.setRouteName(entitytime.getRouteName().getZhTw());//紅9 紅25
+                    label1.setRouteName(entitytime.getRouteName());//紅9 紅25
                     label1.setDirection(entitytime.getDirection());//去返程
                     label1.setStopID(entitytime.getStops().get(j).getStopID());//路線ＩＤ
                     label1.setStopName(entitytime.getStops().get(j).getStopName());//路線名

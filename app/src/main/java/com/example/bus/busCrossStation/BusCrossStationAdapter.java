@@ -74,7 +74,7 @@ public class BusCrossStationAdapter extends RecyclerView.Adapter<BusCrossStation
                 public void onClick(View view) {
                     int index = getAdapterPosition();
                     routedata.get(index);
-                    clickListener.onClickHello(view, index, routedata.get(index).getRouteID(), routedata.get(index).getRouteName());
+                    clickListener.onClickHello(view, index, routedata.get(index).getRouteID(), routedata.get(index).getRouteName().getZhTw());
                 }
             });
 

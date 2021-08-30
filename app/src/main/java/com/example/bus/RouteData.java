@@ -1,6 +1,7 @@
 package com.example.bus;
 
 //import com.example.bus.realtimemodel.StopName;
+import com.example.bus.realtimesequenceModel.RouteName;
 import com.example.bus.realtimesequenceModel.StopName;
 import com.example.bus.starttimemodel.ServiceDay;
 
@@ -8,20 +9,23 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import com.example.bus.realtimesequenceModel.RouteName;
 
 public class RouteData {
-    String RouteUID, RouteID, DepartureStopNameZh, DestinationStopNameZh, RouteName;
+    String RouteUID;
+    String RouteID;
+    String DepartureStopNameZh;
+    String DestinationStopNameZh;
+    RouteName RouteName;
 
 
     //List<String> StopName;//站牌名
     int DutyStatus;//1開始 2結束 0正常
     int A2EventType;//1進站 0離站
-//    Date GPSTime;//距離抵達站牌多久的時間
-//    Date UpdateTime;//平台更新時間
     Boolean  isLike = false;
 
     int GPSTime;//距離抵達站牌多久的時間
-    int UpdateTime;//平台更新時間
+    String UpdateTime;//平台更新時間
     StopName StopName;//路線名稱
     int EstimateTime;//預估時間
     int StopSequence;//站牌順序
@@ -131,11 +135,11 @@ public class RouteData {
         this.GPSTime = GPSTime;
     }
 
-    public int getUpdateTime() {
+    public String getUpdateTime() {
         return UpdateTime;
     }
 
-    public void setUpdateTime(int updateTime) {
+    public void setUpdateTime(String updateTime) {
         UpdateTime = updateTime;
     }
 
@@ -206,11 +210,11 @@ public class RouteData {
         DestinationStopNameZh = destinationStopNameZh;
     }
 
-    public String getRouteName() {
+    public RouteName getRouteName() {
         return RouteName;
     }
 
-    public void setRouteName(String routeName) {
+    public void setRouteName(RouteName routeName) {
         RouteName = routeName;
     }
 }

@@ -40,7 +40,7 @@ public class BusCrossStationPresenter {
             for (int i = 0; i < entity.getStops().size(); i++) {
                 if (entity.getStops().get(i).getStationID().equals(Stationid)) {
                     RouteData lable = new RouteData();
-                    lable.setRouteName(entity.getRouteName().getZhTw());//路線名 紅9
+                    lable.setRouteName(entity.getRouteName());//路線名 紅9
                     lable.setRouteID(entity.getRouteID());//路線id
                     lable.setStopID(entity.getStops().get(i).getStopID());//站id
                     templist.add(lable);

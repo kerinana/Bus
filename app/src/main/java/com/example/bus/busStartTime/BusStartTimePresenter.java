@@ -50,14 +50,14 @@ public class BusStartTimePresenter {
 
                         if (entitytime2.getServiceDay().getSunday()==1) {
                             label1 = new RouteData();
-                            label1.setRouteName(entitytime.getRouteName().getZhTw());//紅9 紅25
+                            //label1.setRouteName(entitytime.getRouteName().getZhTw());//紅9 紅25
                             label1.setDirection(entitytime.getDirection());//去返程
                             label1.setArrivalTime(entitytime2.getStopTimes().get(0).getArrivalTime());//取得車子抵達時間
                             label1.setServiceDay(entitytime2.getServiceDay());//取得服務日期
                             weekdays.add(label1);
                         } else if (entitytime2.getServiceDay().getMonday()==1) {
                             label1 = new RouteData();
-                            label1.setRouteName(entitytime.getRouteName().getZhTw());//紅9 紅25
+                            //label1.setRouteName(entitytime.getRouteName().getZhTw());//紅9 紅25
                             label1.setDirection(entitytime.getDirection());//去返程
                             label1.setArrivalTime(entitytime2.getStopTimes().get(0).getArrivalTime());//取得車子抵達時間
                             label1.setServiceDay(entitytime2.getServiceDay());//取得服務日期

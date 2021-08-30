@@ -74,7 +74,7 @@ public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.LikeViewHolder
 
 
         RouteData likeitem = likelist.get(position);
-        holder.rountename.setText(likeitem.getRouteName());
+        holder.rountename.setText(likeitem.getRouteName().getZhTw());
         holder.startstation.setText(likeitem.getDepartureStopNameZh());
         holder.endstation.setText(likeitem.getDestinationStopNameZh());
 
@@ -123,7 +123,7 @@ public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.LikeViewHolder
                 public void onClick(View view) {
                     int index = getAdapterPosition();
                     likelist.get(index);
-                    clickListener.onClickHello(likelist.get(index).getRouteID(),likelist.get(index).getRouteName());
+                    clickListener.onClickHello(likelist.get(index).getRouteID(),likelist.get(index).getRouteName().getZhTw());
 
 
                 }

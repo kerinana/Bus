@@ -1,22 +1,21 @@
 package com.example.bus.head;
 
-import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bus.R;
 import com.example.bus.RouteData;
+import com.example.bus.SignatureTest;
 import com.example.bus.busRealTime.BusRealTime;
-import com.example.bus.model.RouteDataSource;
-import com.example.bus.model.RouteEntity;
-import com.example.bus.searchBusStation.SearchAdapter;
 import com.example.bus.searchBusStation.SearchBusStation;
 import com.example.bus.searchNearStation.SearchNearStation;
 
@@ -30,17 +29,18 @@ public class HeadActivity extends AppCompatActivity implements HeadContract {
     List<RouteData> test = new ArrayList<>();
     HeadPresent present = new HeadPresent(this, this);
     LikeAdapter likeAdapter = new LikeAdapter(this);
+    SignatureTest signtest = new SignatureTest();
     //HeadPresent present;
 
 
-
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.head);
 
 
-        Button nearbutton=findViewById(R.id.tosearchnearstationbutton);
+        Button nearbutton = findViewById(R.id.tosearchnearstationbutton);
         nearbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,7 +85,17 @@ public class HeadActivity extends AppCompatActivity implements HeadContract {
             }
         });
 
-
+//        signtest.getRouteData("9", new SignatureTest.DataCallback<List<RouteData>>() {
+//            @Override
+//            public void onSuccess(List<RouteData> data) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(String errorMessage) {
+//
+//            }
+//        });
     }
 
     @Override

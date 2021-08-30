@@ -75,7 +75,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
 
         RouteData likeitem = likelist.get(position);
-        holder.rountename.setText(likeitem.getRouteName());
+        holder.rountename.setText(likeitem.getRouteName().getZhTw());
         holder.startstation.setText(likeitem.getDepartureStopNameZh());
         holder.endstation.setText(likeitem.getDestinationStopNameZh());
         if (likeitem.getLike()) {
@@ -97,7 +97,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                     likeitem.setLike(false);//按下後變暗
                     holder.imageView.setImageResource(android.R.drawable.btn_star_big_off);
                     //傳要變暗的routename給presenter
-                    clickListener.onClicklikecancel(likeitem.getRouteName());
+                    clickListener.onClicklikecancel(likeitem.getRouteName().getZhTw());
 
 
                 } else {//星星原本是暗的
@@ -146,7 +146,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                 public void onClick(View view) {
                     int index = getAdapterPosition();
                     likelist.get(index);
-                    clickListener.onClickHello(likelist.get(index).getRouteID(),likelist.get(index).getRouteName());
+                    clickListener.onClickHello(likelist.get(index).getRouteID(),likelist.get(index).getRouteName().getZhTw());
 
                 }
             });

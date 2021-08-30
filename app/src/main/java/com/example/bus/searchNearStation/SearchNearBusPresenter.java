@@ -29,7 +29,7 @@ public class SearchNearBusPresenter {
                 RouteData lable = new RouteData();
                 lable.setPositionLat(entity.getStationPosition().getPositionLat());
                 lable.setPositionLon(entity.getStationPosition().getPositionLon());
-                lable.setRouteName(entity.getStops().get(j).getRouteName().getZhTw());//221
+                //lable.setRouteName(entity.getStops().get(j).getRouteName());//221
                 lable.setStopName(entity.getStops().get(j).getStopName());//中原公園
                 lable.setStationAddress(entity.getStationAddress());
                 resultList.add(lable);
