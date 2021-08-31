@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -133,8 +134,31 @@ public class PTXService {
         });
 
     }
+    public void getRoutePosition(double Latitude, double Longitude, DataCallback<List<RouteData>> callback) {
+        requestRoutePosition("Taipei", Latitude,Longitude, new RequestCallback() {
+            @Override
+            public void onSuccess(String json) {
+                Gson gson = new Gson();
+                Type routeEntityTypeToken = TypeToken.getParameterized(List.class, RouteData.class).getType();
+                List<RouteData> result = gson.fromJson(json, routeEntityTypeToken);
+                callback.onSuccess(result);
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+                callback.onFailure(errorMessage);
+            }
+        });
+
+    }
 
     /***Url Generate***/
+    //去網路抓資料，以現在位置抓附近站牌
+    private void requestRoutePosition(String city, double Latitude,double Longitude, RequestCallback callback) {
+        String filter = "nearby( " + Latitude+","+ Longitude+","+"1000"+ ")";
+        String url = "https://ptx.transportdata.tw/MOTC/v2/Bus/Station/City/" + city + "?$spatialFilter=" + filter + "&$format=JSON";
+        request(url, callback);
+    }
     //去網路抓資料，以routeid，抓發車時刻
     private void requestRouteStartTimeByRouteID(String city, String routeid, RequestCallback callback) {
         String filter = "RouteID eq " + "'" + routeid + "'";
@@ -170,6 +194,7 @@ public class PTXService {
         String url = "https://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/" + city + "?$filter=" + filter + "&$format=JSON";
         request(url, callback);
     }
+
 
 
     /****Network Request*****/

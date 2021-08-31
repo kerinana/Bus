@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.bus.DataCallback;
+import com.example.bus.PTXService;
 import com.example.bus.R;
 import com.example.bus.RouteData;
 import com.google.android.gms.common.ConnectionResult;
@@ -54,6 +56,7 @@ public class SearchNearStation extends AppCompatActivity
     private LocationCallback locationCallback;
     private GoogleApiClient mGoogleApiClient;
     private GoogleMap mMap;
+    Location nowLocation;
     SearchNearBusPresenter presenter = new SearchNearBusPresenter(this);
 
 
@@ -133,6 +136,7 @@ public class SearchNearStation extends AppCompatActivity
         }
         Location location = locationManager.getLastKnownLocation(provider);//存取位置
 
+
         //如果不是null讓畫面移到那裡
         if (location != null) {
             Log.i("LOCATION", location.getLatitude() + "/" + location.getLongitude());
@@ -188,11 +192,12 @@ public class SearchNearStation extends AppCompatActivity
             public void onSuccess(Location location) {
                 if (location != null) {
                     LatLng now = new LatLng(location.getLatitude(), location.getLongitude());
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(now, 15));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(now, 15f));
                     mMap.addMarker(new MarkerOptions()
                             .position(now)
                             .title("現在位置"));
                 }
+                presenter.getNearBus(location.getLatitude(), location.getLongitude());
             }
         });
     }
@@ -200,7 +205,6 @@ public class SearchNearStation extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        presenter.getNearBus();
     }
 
     /**

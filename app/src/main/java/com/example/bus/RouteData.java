@@ -1,6 +1,8 @@
 package com.example.bus;
 
 //import com.example.bus.realtimemodel.StopName;
+import com.example.bus.nearbybusmodel.StationName;
+import com.example.bus.nearbybusmodel.StationPosition;
 import com.example.bus.realtimesequenceModel.RouteName;
 import com.example.bus.realtimesequenceModel.StopName;
 import com.example.bus.realtimesequenceModel.StopsItem;
@@ -42,6 +44,24 @@ public class RouteData {
     List<StopsItem> Stops;
     private List<FrequencysItem> Frequencys;
     private List<TimetablesItem> Timetables;
+    private StationPosition StationPosition;
+    private StationName StationName;
+
+    public com.example.bus.nearbybusmodel.StationPosition getStationPosition() {
+        return StationPosition;
+    }
+
+    public void setStationPosition(com.example.bus.nearbybusmodel.StationPosition stationPosition) {
+        StationPosition = stationPosition;
+    }
+
+    public com.example.bus.nearbybusmodel.StationName getStationName() {
+        return StationName;
+    }
+
+    public void setStationName(com.example.bus.nearbybusmodel.StationName stationName) {
+        StationName = stationName;
+    }
 
     public List<FrequencysItem> getFrequencys() {
         return Frequencys;
