@@ -38,11 +38,7 @@ public class BusStartTime extends AppCompatActivity implements BusStartTimeContr
         //去抓時刻表
         presenter.getBusStartTime(Routeid);
 
-        TextView weekdays = findViewById(R.id.weekdays);
-        TextView weekend = findViewById(R.id.weekend);
 
-        weekdays.setText(str);
-        weekend.setText(str2);
 
 
     }
@@ -75,10 +71,24 @@ public class BusStartTime extends AppCompatActivity implements BusStartTimeContr
 
         //排好的時間傳給textview去set
         for (RouteData query : queryResult) {
-            if (i % 5 == 0) this.str += "  " + query.getArrivalTime() + "\n";
-            else this.str += "  " + query.getArrivalTime();
+            if (i % 5 == 0) this.str += " " + query.getArrivalTime() + "\n";
+            else this.str += " " + query.getArrivalTime();
             i++;
         }
+        TextView weekdays = findViewById(R.id.weekdays);
+        TextView weekend = findViewById(R.id.weekend);
+
+        if(str!=" ")weekdays.setText(str);
+        else {
+            str="無發車資訊";
+            weekdays.setText(str);
+        }
+        if(str2!="")weekend.setText(str2);
+        else {
+            str2="無發車資訊";
+            weekend.setText(str2);
+        }
+
 
     }
 

@@ -4,13 +4,13 @@ package com.example.bus;
 import com.example.bus.realtimesequenceModel.RouteName;
 import com.example.bus.realtimesequenceModel.StopName;
 import com.example.bus.realtimesequenceModel.StopsItem;
+import com.example.bus.starttimemodel.FrequencysItem;
 import com.example.bus.starttimemodel.ServiceDay;
 
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import com.example.bus.realtimesequenceModel.RouteName;
+
+import com.example.bus.starttimemodel.TimetablesItem;
+import com.google.gson.annotations.SerializedName;
 
 public class RouteData {
     String RouteUID;
@@ -40,6 +40,24 @@ public class RouteData {
     Double PositionLat;
     String StationAddress;
     List<StopsItem> Stops;
+    private List<FrequencysItem> Frequencys;
+    private List<TimetablesItem> Timetables;
+
+    public List<FrequencysItem> getFrequencys() {
+        return Frequencys;
+    }
+
+    public void setFrequencys(List<FrequencysItem> frequencys) {
+        Frequencys = frequencys;
+    }
+
+    public List<TimetablesItem> getTimetables() {
+        return Timetables;
+    }
+
+    public void setTimetables(List<TimetablesItem> timetables) {
+        this.Timetables = timetables;
+    }
 
     public List<StopsItem> getStops() {
         return Stops;
