@@ -1,8 +1,10 @@
 package com.example.bus.busCrossStation;
 
+import com.example.bus.ArriveNotification;
 import com.example.bus.DataCallback;
 import com.example.bus.PTXService;
 import com.example.bus.RouteData;
+import com.example.bus.TimerModel;
 import com.example.bus.model.RouteDataSource;
 import com.example.bus.model.RouteEntity;
 import com.example.bus.realtimemodel.RealTimeData;
@@ -21,6 +23,7 @@ public class BusCrossStationPresenter {
     BusCrossStationPresenter(BusCrossStationContract view) {
         this.view = view;
     }
+
 
     public void getcross(String Stationid,String stopid,int direceion) {
 
@@ -116,6 +119,21 @@ public class BusCrossStationPresenter {
                 }
             });
         }
+    }
+
+    //通知更新到站提醒
+    public void updateCallback() {
+        TimerModel.getInstance().registerCallback(new DataCallback<ArriveNotification> () {
+            @Override
+            public void onSuccess(ArriveNotification data) {
+                view.showArriveTimeDialog(data);
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+
+            }
+        });
     }
 
 }

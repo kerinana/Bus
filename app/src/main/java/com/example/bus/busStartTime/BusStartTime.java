@@ -3,11 +3,14 @@ package com.example.bus.busStartTime;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.bus.AlertDialogFragment;
+import com.example.bus.ArriveNotification;
 import com.example.bus.R;
 import com.example.bus.RouteData;
 
@@ -39,8 +42,12 @@ public class BusStartTime extends AppCompatActivity implements BusStartTimeContr
         presenter.getBusStartTime(Routeid);
 
 
+    }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.updateCallback();
     }
 
     /**
@@ -125,5 +132,12 @@ public class BusStartTime extends AppCompatActivity implements BusStartTimeContr
             i++;
         }
 
+    }
+    //顯示到站更新
+    public void showArriveTimeDialog(ArriveNotification data) {
+        Log.d("BusStartTime","到站囉");
+        AlertDialogFragment dialogFragment = new AlertDialogFragment(data);
+        dialogFragment
+                .show(getSupportFragmentManager(), "alertDialogFragment");
     }
 }

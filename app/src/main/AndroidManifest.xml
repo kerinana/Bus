@@ -24,8 +24,6 @@
         <activity
             android:name=".searchBusStation.SearchBusStation"
             android:exported="true">
-
-
         </activity>
         <activity
             android:name=".head.HeadActivity"
@@ -50,6 +48,10 @@
         </activity>
         <activity
             android:name=".searchNearStation.SearchNearStation"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".busSchedule.BusAlert"
             android:exported="true">
         </activity>
         <meta-data

@@ -26,21 +26,13 @@ import java.util.zip.Inflater;
  */
 public class BusRealTimeAdapter extends RecyclerView.Adapter<BusRealTimeAdapter.BusRealTimeViewHolder> {
 
+
     private final Context context;
     private final String Routeid;
     private OnOpenDialogListener listener;
     private List<RouteData> routedata = new ArrayList<>();
-    private onItemClickListener clickListener;
+   // private onItemClickListener clickListener;
 
-
-    public interface onItemClickListener{
-        void  onclic(String stopid,String stopname,String stationid,int direction);
-
-    }
-    public  void setOnItemClickListener(onItemClickListener listener){
-        clickListener=listener;
-
-    }
     public void UpDateRoute(List<RouteData> queryResult) {
         routedata.clear();
         routedata.addAll(queryResult);
@@ -55,7 +47,7 @@ public class BusRealTimeAdapter extends RecyclerView.Adapter<BusRealTimeAdapter.
 
     interface OnOpenDialogListener {//應該要傳ＩＤ給他
 
-        void onOpenDialog();
+        void onOpenDialog(String id, String name, String station, int directionid);
     }
 
     @NonNull
@@ -123,8 +115,7 @@ public class BusRealTimeAdapter extends RecyclerView.Adapter<BusRealTimeAdapter.
                 public void onClick(View view) {
                     int index = getAdapterPosition();
                     RouteData routeData = routedata.get(index);
-                    clickListener.onclic(routeData.getStopID(),routeData.getStopName().getZhTw(),routeData.getStationID(),routeData.getDirection());//傳給busrealtime
-                    listener.onOpenDialog();//打開dialog
+                    listener.onOpenDialog(routeData.getStopID(),routeData.getStopName().getZhTw(),routeData.getStationID(),routeData.getDirection());//打開dialog
                 }
             });
 

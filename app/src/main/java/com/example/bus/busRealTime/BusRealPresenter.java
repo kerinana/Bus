@@ -1,8 +1,12 @@
 package com.example.bus.busRealTime;
 
+import android.util.Log;
+
+import com.example.bus.ArriveNotification;
 import com.example.bus.DataCallback;
 import com.example.bus.PTXService;
 import com.example.bus.RouteData;
+import com.example.bus.TimerModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +19,9 @@ public class BusRealPresenter {
 
     BusRealPresenter(BusRealTime view) {
         this.view = view;
+    }
+    BusRealPresenter() {
+
     }
 
     /**
@@ -128,6 +135,22 @@ public class BusRealPresenter {
                 }
                 //取得預估時間
                 gettimeInternet(Routeid,direction);
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+
+            }
+        });
+    }
+
+    //通知更新到站提醒
+    public void updateCallback() {
+        TimerModel.getInstance().registerCallback(new DataCallback<ArriveNotification> () {
+            @Override
+            public void onSuccess(ArriveNotification data) {
+                //Log.d("BusRealTimePresenter","到站囉");
+                view.showArriveTimeDialog(data);
             }
 
             @Override

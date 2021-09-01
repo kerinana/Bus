@@ -25,14 +25,13 @@ import java.util.zip.GZIPInputStream;
 
 public class PTXService {
 
-
     //Model
 
     /***API invoker***/
 
     //路徑資料
     public void getRouteData(String routeName, DataCallback<List<RouteData>> callback) {
-        requestRouteDataByRouteName("Taipei", routeName, new RequestCallback() {
+        requestRouteDataByRouteName("NewTaipei", routeName, new RequestCallback() {
             @Override
             public void onSuccess(String json) {
                 Gson gson = new Gson();
@@ -48,7 +47,7 @@ public class PTXService {
         });
     }
     public void getRouteDataById(String routeid, DataCallback<List<RouteData>> callback) {
-        requestRouteDataById("Taipei", routeid, new RequestCallback() {
+        requestRouteDataById("NewTaipei", routeid, new RequestCallback() {
             @Override
             public void onSuccess(String json) {
                 Gson gson = new Gson();
@@ -65,7 +64,7 @@ public class PTXService {
     }
     //預估時間
     public void getRouteTimeData(String routeID, DataCallback<List<RouteData>> callback) {
-        requestRouteTimeDataByRouteID("Taipei", routeID, new RequestCallback() {
+        requestRouteTimeDataByRouteID("NewTaipei", routeID, new RequestCallback() {
             @Override
             public void onSuccess(String json) {
                 Gson gson = new Gson();
@@ -82,7 +81,7 @@ public class PTXService {
     }
     //站牌名順序
     public void getRouteSequenDataById(String routeId, DataCallback<List<RouteData>> callback) {
-        requestRouteSequenDataByRouteID("Taipei", routeId, new RequestCallback() {
+        requestRouteSequenDataByRouteID("NewTaipei", routeId, new RequestCallback() {
             @Override
             public void onSuccess(String json) {
                 Gson gson = new Gson();
@@ -100,7 +99,7 @@ public class PTXService {
     }
     //Station
     public void getRouteStationDataById(String stationId, DataCallback<List<RouteData>> callback) {
-        requestRouteStationDataByRouteID("Taipei", stationId, new RequestCallback() {
+        requestRouteStationDataByRouteID("NewTaipei", stationId, new RequestCallback() {
             @Override
             public void onSuccess(String json) {
                 Gson gson = new Gson();
@@ -118,7 +117,7 @@ public class PTXService {
     }
     //以routeid抓發車時刻表
     public void getRouteStartTimeByRouteID(String routeId, DataCallback<List<RouteData>> callback) {
-        requestRouteStartTimeByRouteID("Taipei", routeId, new RequestCallback() {
+        requestRouteStartTimeByRouteID("NewTaipei", routeId, new RequestCallback() {
             @Override
             public void onSuccess(String json) {
                 Gson gson = new Gson();
@@ -135,7 +134,7 @@ public class PTXService {
 
     }
     public void getRoutePosition(double Latitude, double Longitude, DataCallback<List<RouteData>> callback) {
-        requestRoutePosition("Taipei", Latitude,Longitude, new RequestCallback() {
+        requestRoutePosition("NewTaipei", Latitude,Longitude, new RequestCallback() {
             @Override
             public void onSuccess(String json) {
                 Gson gson = new Gson();

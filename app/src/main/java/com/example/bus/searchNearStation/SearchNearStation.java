@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.bus.ArriveNotification;
 import com.example.bus.DataCallback;
 import com.example.bus.PTXService;
 import com.example.bus.R;
@@ -64,10 +65,15 @@ public class SearchNearStation extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bus_maps);
-
         EasyPermissions.requestPermissions(this, "可以給我權限ㄇ", 1000, Manifest.permission.ACCESS_FINE_LOCATION);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        presenter.updateCallback();
+    }
 
     /**
      * 重寫onRequestPermissionsResult，用於接受請求結果
@@ -237,5 +243,16 @@ public class SearchNearStation extends AppCompatActivity
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+    //顯示到站更新
+    public void showArriveTimeDialog(ArriveNotification data) {
+//        dialogFragment = new DialogFragment();
+//        //做dialog的畫面轉跳
+//        dialogFragment.setOnItemClickListener(new AlertDialogFragment().onItemClickListener() { //丟事情(就是下面包的東西)給listener做
+//            //確定
+//            public void onClickstarttime(View view, final int position) {
+//
+//            }
+//        });
 
+    }
 }

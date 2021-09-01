@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bus.AlertDialogFragment;
+import com.example.bus.ArriveNotification;
 import com.example.bus.PTXService;
 import com.example.bus.R;
 import com.example.bus.RouteData;
@@ -30,7 +32,6 @@ public class HeadActivity extends AppCompatActivity implements HeadContract {
     HeadPresent present = new HeadPresent(this, this);
     LikeAdapter likeAdapter = new LikeAdapter(this);
     PTXService service = new PTXService();
-    //HeadPresent present;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -85,17 +86,12 @@ public class HeadActivity extends AppCompatActivity implements HeadContract {
             }
         });
 
-//        signtest.getRouteData("9", new SignatureTest.DataCallback<List<RouteData>>() {
-//            @Override
-//            public void onSuccess(List<RouteData> data) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(String errorMessage) {
-//
-//            }
-//        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        present.updateCallback();
     }
 
     @Override
@@ -115,6 +111,14 @@ public class HeadActivity extends AppCompatActivity implements HeadContract {
         //取出like清單
 
         likeAdapter.updateData(likeList);
+
+    }
+
+    public void showArriveTimeDialog(ArriveNotification data) {
+        Log.d("HeadActivity","到站囉");
+        AlertDialogFragment dialogFragment = new AlertDialogFragment(data);
+        dialogFragment
+                .show(getSupportFragmentManager(), "alertDialogFragment");
 
     }
 }

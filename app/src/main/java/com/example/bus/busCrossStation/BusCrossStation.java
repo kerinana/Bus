@@ -2,6 +2,7 @@ package com.example.bus.busCrossStation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bus.AlertDialogFragment;
+import com.example.bus.ArriveNotification;
 import com.example.bus.DialogFragment;
 import com.example.bus.R;
 import com.example.bus.RouteData;
@@ -66,6 +69,11 @@ public class BusCrossStation extends AppCompatActivity implements BusCrossStatio
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.updateCallback();
+    }
 
     /**
      * 更新畫面
@@ -75,6 +83,15 @@ public class BusCrossStation extends AppCompatActivity implements BusCrossStatio
     @Override
     public void showCrossBus(List<RouteData> templist) {
         busCrossStationAdapter.update(templist);
+
+    }
+
+    //到站通知
+    public void showArriveTimeDialog(ArriveNotification data) {
+        Log.d("BusCross","到站囉");
+        AlertDialogFragment dialogFragment = new AlertDialogFragment(data);
+        dialogFragment
+                .show(getSupportFragmentManager(), "alertDialogFragment");
 
     }
 

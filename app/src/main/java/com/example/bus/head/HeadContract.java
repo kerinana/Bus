@@ -1,5 +1,6 @@
 package com.example.bus.head;
 
+import com.example.bus.ArriveNotification;
 import com.example.bus.RouteData;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface HeadContract {
       * @param likeList 為清單資訊
       * */
      void updateLike(List<RouteData> likeList);
+      void showArriveTimeDialog(ArriveNotification data) ;
+
 }

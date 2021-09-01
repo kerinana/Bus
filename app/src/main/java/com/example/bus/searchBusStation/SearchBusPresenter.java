@@ -9,9 +9,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.bus.ArriveNotification;
 import com.example.bus.DataCallback;
 import com.example.bus.PTXService;
 import com.example.bus.RouteData;
+import com.example.bus.TimerModel;
 import com.example.bus.model.RouteDataSource;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -212,5 +214,20 @@ public class SearchBusPresenter {
         editor.putString(PREF_KEY_BUS_FAVORITE_ROUTE, json);
         editor.commit();
 
+    }
+
+    //通知更新到站提醒
+    public void updateCallback() {
+        TimerModel.getInstance().registerCallback(new DataCallback<ArriveNotification> () {
+            @Override
+            public void onSuccess(ArriveNotification data) {
+                view.showArriveTimeDialog(data);
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+
+            }
+        });
     }
 }

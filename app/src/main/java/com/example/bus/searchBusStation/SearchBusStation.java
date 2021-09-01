@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bus.ArriveNotification;
 import com.example.bus.R;
 import com.example.bus.RouteData;
 import com.example.bus.busRealTime.BusRealTime;
@@ -41,6 +42,7 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.searchbusstation);
+
 
         // 初始化清單元件
         recyclerViewSearchList = findViewById(R.id.searchlist);
@@ -101,6 +103,12 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
         presenter.getBusInfo();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.updateCallback();
+    }
+
     /**
      * 更新搜尋畫面
      */
@@ -110,6 +118,17 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
         searchAdapter.updateData(routeEntityList);
 
     }
+    //顯示到站更新
+    public void showArriveTimeDialog(ArriveNotification data) {
+//        dialogFragment = new DialogFragment();
+//        //做dialog的畫面轉跳
+//        dialogFragment.setOnItemClickListener(new AlertDialogFragment().onItemClickListener() { //丟事情(就是下面包的東西)給listener做
+//            //確定
+//            public void onClickstarttime(View view, final int position) {
+//
+//            }
+//        });
 
+    }
 
 }
