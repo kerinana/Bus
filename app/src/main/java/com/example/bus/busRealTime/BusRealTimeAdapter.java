@@ -1,6 +1,7 @@
 package com.example.bus.busRealTime;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,28 +70,43 @@ public class BusRealTimeAdapter extends RecyclerView.Adapter<BusRealTimeAdapter.
 
         RouteData routeitem = routedata.get(position);
 
+
+
         //判斷車子狀態
         if (routeitem.getStopStatus() == 0 ) {//狀態為正常
             //如果預估時間=0
             if(routeitem.getEstimateTime() < 1){
                 holder.realtime.setText("進站中");
+                holder.realtime.setBackgroundColor(android.graphics.Color.MAGENTA);
             }
             else{
                 holder.realtime.setText(" " + routeitem.getEstimateTime() + "分");
+                holder.realtime.setBackgroundColor(android.graphics.Color.TRANSPARENT);
             }
         } else if (routeitem.getStopStatus() == 1) { //1:'尚未發車
-            if(routeitem.getEstimateTime() == 0) holder.realtime.setText("尚未發車");
-            else holder.realtime.setText(" " + routeitem.getEstimateTime() + "分");
+            if(routeitem.getEstimateTime() == 0) {
+                holder.realtime.setText("尚未發車");
+                holder.realtime.setBackgroundColor(android.graphics.Color.LTGRAY);
+            }
+            else {
+                holder.realtime.setText(" " + routeitem.getEstimateTime() + "分");
+                holder.realtime.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+            }
 
         }else if (routeitem.getStopStatus() == 2) {
             holder.realtime.setText("交管不停靠");
+            holder.realtime.setBackgroundColor(android.graphics.Color.LTGRAY);
         }else if (routeitem.getStopStatus() == 3) {
             holder.realtime.setText("末班車已過");
+            holder.realtime.setBackgroundColor(android.graphics.Color.LTGRAY);
         }else if (routeitem.getStopStatus() == 4) {
             holder.realtime.setText("今日未營運");
+            holder.realtime.setBackgroundColor(android.graphics.Color.LTGRAY);
         }
 
         holder.station.setText(routeitem.getStopName().getZhTw());
+
+
 
 
     }
