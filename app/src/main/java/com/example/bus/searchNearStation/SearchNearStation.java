@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.bus.AlertDialogFragment;
 import com.example.bus.ArriveNotification;
 import com.example.bus.DataCallback;
 import com.example.bus.PTXService;
@@ -172,24 +173,10 @@ public class SearchNearStation extends AppCompatActivity
     }
 
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            //當從軟件設置界面，返回當前程序時候
-            case AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE:
-
-                //執行Toast顯示或者其他邏輯處理操作
-                break;
-
-        }
-    }
-
-
     //放取得的位置程式碼放這
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
             return;
         }
         //取得目前裝置位置
@@ -243,16 +230,11 @@ public class SearchNearStation extends AppCompatActivity
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
-    //顯示到站更新
+    //到站通知
     public void showArriveTimeDialog(ArriveNotification data) {
-//        dialogFragment = new DialogFragment();
-//        //做dialog的畫面轉跳
-//        dialogFragment.setOnItemClickListener(new AlertDialogFragment().onItemClickListener() { //丟事情(就是下面包的東西)給listener做
-//            //確定
-//            public void onClickstarttime(View view, final int position) {
-//
-//            }
-//        });
-
+        Log.d("BusRealTime","到站囉");
+        AlertDialogFragment dialogFragment = new AlertDialogFragment(data);
+        dialogFragment
+                .show(getSupportFragmentManager(), "alertDialogFragment");
     }
 }

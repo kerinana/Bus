@@ -32,6 +32,9 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
 
     private RecyclerView busRealRecycle;
     private BusRealPresenter busRealPresenter = new BusRealPresenter(this);
+
+    //BusSchedulePresent present = new BusSchedulePresent(this);
+
     TextView routename;
     DialogFragment dialogFragment;
     BusScheduleDialogFragment scheduleDialogFragment;
@@ -40,6 +43,7 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
     int direction;
     String Routeid;
     String Routename;
+    int status;
 
     //BusRealPresenter busRealPresenter =new BusRealPresenter();
     @Override
@@ -60,11 +64,12 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
 
         BusRealTimeadapter = new BusRealTimeAdapter(this, Routeid, new BusRealTimeAdapter.OnOpenDialogListener() {
             @Override
-            public void onOpenDialog(String id, String name, String station, int directionid) {
+            public void onOpenDialog(String id, String name, String station, int directionid,int statu) {
                 stopid = id;
                 stopname = name;
                 stationid = station;
                 direction = directionid;
+                status=statu;
                 openDialog();
             }
         });
@@ -129,39 +134,24 @@ public class BusRealTime extends AppCompatActivity implements BusRealTimeContrac
         scheduleDialogFragment.setOnItemClickListener(new BusScheduleDialogFragment.onItemClickListener() {
 
             public void onClickthree(int position) { //三分鐘
-                Intent intent = new Intent(BusRealTime.this, BusAlert.class);
-                intent.putExtra("routeid", Routeid);
-                intent.putExtra("stopid", stopid);
-                intent.putExtra("direction", direction);
-                intent.putExtra("time", 3);
-                startActivity(intent);
+                busRealPresenter.updateCallback();
+                busRealPresenter.updateEstimae(Routeid, stopid, direction, 3,status);
+
             }
 
             public void onClickfive(int position) { //五分鐘
-                Intent intent = new Intent(BusRealTime.this, BusAlert.class);
-                intent.putExtra("routeid", Routeid);
-                intent.putExtra("stopid", stopid);
-                intent.putExtra("direction", direction);
-                intent.putExtra("time", 5);
-                startActivity(intent);
+                busRealPresenter.updateCallback();
+                busRealPresenter.updateEstimae(Routeid, stopid, direction, 5,status);
             }
 
             public void onClickseven(int position) {//七分鐘
-                Intent intent = new Intent(BusRealTime.this, BusAlert.class);
-                intent.putExtra("routeid", Routeid);
-                intent.putExtra("stopid", stopid);
-                intent.putExtra("direction", direction);
-                intent.putExtra("time", 7);
-                startActivity(intent);
+                busRealPresenter.updateCallback();
+                busRealPresenter.updateEstimae(Routeid, stopid, direction, 7,status);
             }
 
             public void onClickeleven(int position) { //十一分鐘
-                Intent intent = new Intent(BusRealTime.this, BusAlert.class);
-                intent.putExtra("routeid", Routeid);
-                intent.putExtra("stopid", stopid);
-                intent.putExtra("direction", direction);
-                intent.putExtra("time", 11);
-                startActivity(intent);
+                busRealPresenter.updateCallback();
+                busRealPresenter.updateEstimae(Routeid, stopid, direction, 11,status);
             }
 
         });

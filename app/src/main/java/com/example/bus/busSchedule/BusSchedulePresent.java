@@ -28,9 +28,9 @@ public class BusSchedulePresent {
         });
     }
 
-    public void updateEstimae(String routeid, String stopid, int direction, int time) {
+    public void updateEstimae(String routeid, String stopid, int direction, int time,int status) {
 
-        TimerModel.getInstance().updataTime(routeid, stopid, direction, time);
+        TimerModel.getInstance().updataTime(routeid, stopid, direction, time,status);
     }
 
 }

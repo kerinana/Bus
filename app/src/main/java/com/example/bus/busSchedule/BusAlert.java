@@ -25,42 +25,43 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class BusAlert extends AppCompatActivity implements BusAlertContract{
-
-    String stopid, routid;
-    int direction;
-    int time;
-    BusSchedulePresent present = new BusSchedulePresent(this);
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        Intent intent = getIntent();
-        routid = intent.getStringExtra("routeid");
-        stopid = intent.getStringExtra("stopid");
-        direction = intent.getIntExtra("direction", 0);
-        time = intent.getIntExtra("time", 0);
-
-
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        present.updateCallback();
-        present.updateEstimae(routid, stopid, direction, time);
-
-    }
-    //到站通知
-    public void showArriveTimeDialog(ArriveNotification data) {
-        Log.d("BusAlert","到站囉");
-        AlertDialogFragment dialogFragment = new AlertDialogFragment(data);
-        dialogFragment
-                .show(getSupportFragmentManager(), "alertDialogFragment");
-
-    }
+public class BusAlert{
+//extends AppCompatActivity implements BusAlertContract{
+//
+//    String stopid, routid;
+//    int direction;
+//    int time;
+//    BusSchedulePresent present = new BusSchedulePresent(this);
+//
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        //setContentView(R.layout.activity_main);
+//
+//        Intent intent = getIntent();
+//        routid = intent.getStringExtra("routeid");
+//        stopid = intent.getStringExtra("stopid");
+//        direction = intent.getIntExtra("direction", 0);
+//        time = intent.getIntExtra("time", 0);
+//
+//
+//
+//    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        present.updateCallback();
+//        present.updateEstimae(routid, stopid, direction, time);
+//
+//    }
+//    //到站通知
+//    public void showArriveTimeDialog(ArriveNotification data) {
+//        Log.d("BusAlert","到站囉");
+//        AlertDialogFragment dialogFragment = new AlertDialogFragment(data);
+//        dialogFragment
+//                .show(getSupportFragmentManager(), "alertDialogFragment");
+//
+//    }
 }

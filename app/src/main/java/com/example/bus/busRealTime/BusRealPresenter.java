@@ -159,4 +159,9 @@ public class BusRealPresenter {
             }
         });
     }
+
+    public void updateEstimae(String routeid, String stopid, int direction, int time,int status) {
+
+        TimerModel.getInstance().updataTime(routeid, stopid, direction, time,status);
+    }
 }

@@ -47,6 +47,7 @@ public class BusScheduleDialogFragment extends DialogFragment {
                 @Override
                 public void onClick(View view) {     //裡面做判斷時間（小於三分鐘就跳）dialog
                     clickListener.onClickthree(3);
+                    dismiss();
                 }
             });
 
@@ -55,18 +56,21 @@ public class BusScheduleDialogFragment extends DialogFragment {
                 @Override
                 public void onClick(View view) {//裡面做判斷時間（小於5分鐘就跳）dialog
                     clickListener.onClickfive(5);
+                    dismiss();
                 }
             });
             seven.setOnClickListener(new View.OnClickListener(){//七分鐘
                 @Override
                 public void onClick(View view) {//裡面做判斷時間（小於7分鐘就跳）dialog
                     clickListener.onClickseven(7);
+                    dismiss();
                 }
             });
             eleven.setOnClickListener(new View.OnClickListener(){//十一分鐘
                 @Override
                 public void onClick(View view) {//裡面做判斷時間（小於11分鐘就跳）dialog
                     clickListener.onClickeleven(11);
+                    dismiss();
                 }
             });
             btn_cancel.setOnClickListener(new View.OnClickListener(){
@@ -78,24 +82,5 @@ public class BusScheduleDialogFragment extends DialogFragment {
             return rootView;
         }
 
-    //看看在幹嘛
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.three:
-                    break;
-                case R.id.five:
-                    break;
-                case R.id.seven:
-                    break;
-                case R.id.eleven:
-                    break;
-                case R.id.btn_cancel:
-                    dismiss();
-                    break;
-                default:
-                    break;
-            }
-//            finish();
-            dismiss();
-        }
+
     }

@@ -77,13 +77,8 @@ public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.LikeViewHolder
         holder.rountename.setText(likeitem.getRouteName().getZhTw());
         holder.startstation.setText(likeitem.getDepartureStopNameZh());
         holder.endstation.setText(likeitem.getDestinationStopNameZh());
-
         holder.imageView.setImageResource(android.R.drawable.btn_star_big_on);
-
-
         holder.imageView.setOnClickListener(new View.OnClickListener() {
-
-
             //從SharedPreferences裡拿有的打星星的有幾個
 
             //星星標記，只要按星星表示取消
@@ -93,8 +88,6 @@ public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.LikeViewHolder
                     clickListener.onClicklikecancel(holder.getAdapterPosition());
                     holder.imageView.setImageResource(android.R.drawable.btn_star_big_off);
             }
-
-
         });
     }
 
@@ -130,6 +123,7 @@ public class LikeAdapter extends RecyclerView.Adapter<LikeAdapter.LikeViewHolder
             });
 
         }
+
 
 
     }

@@ -25,8 +25,8 @@ public class TimerModel {
         callback = call;
     }
 
-    public void updataTime(String routeid, String stopid, int direction, int min) {
-        MyTimerTask myTimerTask = new MyTimerTask(routeid, stopid, direction, min);
+    public void updataTime(String routeid, String stopid, int direction, int min,int status) {
+        MyTimerTask myTimerTask = new MyTimerTask(routeid, stopid, direction, min,status);
         startTimer(myTimerTask);
     }
 
@@ -36,12 +36,14 @@ public class TimerModel {
         private String stopid;
         private int direction;
         private int min;
+        private int status;
 
-        MyTimerTask(String routid, String stopid, int direction, int min) {
+        MyTimerTask(String routid, String stopid, int direction, int min,int status) {
             this.routid = routid;
             this.stopid = stopid;
             this.direction = direction;
             this.min = min;
+            this.status=status;
         }
 
         @Override
@@ -54,7 +56,8 @@ public class TimerModel {
                             if (data.get(i).getEstimateTime() / 60 <= min) {
                                 ArriveNotification lable = new ArriveNotification();
                                 lable.setRouteName(data.get(i).getRouteName().getZhTw());
-                                lable.setMin(min);
+                                lable.setMin(data.get(i).getEstimateTime() / 60);
+                                lable.setStatus(status);
                                 handler.post(new Runnable() {
                                     @Override
                                     public void run() {
@@ -80,7 +83,7 @@ public class TimerModel {
     //開始計時
     private void startTimer(MyTimerTask task) {
         mTimer = new Timer(true);
-        mTimer.schedule(task, 0, 10000); //延時1000ms後執行，60s檢查一次
+        mTimer.schedule(task, 0, 60000); //延時1000ms後執行，60s檢查一次
     }
 
 

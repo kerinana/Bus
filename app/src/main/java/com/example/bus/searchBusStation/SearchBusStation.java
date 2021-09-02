@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bus.AlertDialogFragment;
 import com.example.bus.ArriveNotification;
 import com.example.bus.R;
 import com.example.bus.RouteData;
@@ -118,17 +119,12 @@ public class SearchBusStation extends AppCompatActivity implements SearchBusStat
         searchAdapter.updateData(routeEntityList);
 
     }
-    //顯示到站更新
+    //到站通知
     public void showArriveTimeDialog(ArriveNotification data) {
-//        dialogFragment = new DialogFragment();
-//        //做dialog的畫面轉跳
-//        dialogFragment.setOnItemClickListener(new AlertDialogFragment().onItemClickListener() { //丟事情(就是下面包的東西)給listener做
-//            //確定
-//            public void onClickstarttime(View view, final int position) {
-//
-//            }
-//        });
-
+        Log.d("BusRealTime","到站囉");
+        AlertDialogFragment dialogFragment = new AlertDialogFragment(data);
+        dialogFragment
+                .show(getSupportFragmentManager(), "alertDialogFragment");
     }
 
 }

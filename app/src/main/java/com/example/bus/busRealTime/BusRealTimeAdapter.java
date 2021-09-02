@@ -47,7 +47,7 @@ public class BusRealTimeAdapter extends RecyclerView.Adapter<BusRealTimeAdapter.
 
     interface OnOpenDialogListener {//應該要傳ＩＤ給他
 
-        void onOpenDialog(String id, String name, String station, int directionid);
+        void onOpenDialog(String id, String name, String station, int directionid,int status);
     }
 
     @NonNull
@@ -115,7 +115,10 @@ public class BusRealTimeAdapter extends RecyclerView.Adapter<BusRealTimeAdapter.
                 public void onClick(View view) {
                     int index = getAdapterPosition();
                     RouteData routeData = routedata.get(index);
-                    listener.onOpenDialog(routeData.getStopID(),routeData.getStopName().getZhTw(),routeData.getStationID(),routeData.getDirection());//打開dialog
+                    listener.onOpenDialog(routeData.getStopID(),routeData.getStopName().getZhTw(),routeData.getStationID(),routeData.getDirection(),routeData.getStopStatus());//打開dialog
+
+
+
                 }
             });
 
