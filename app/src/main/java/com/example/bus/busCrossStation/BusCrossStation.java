@@ -64,7 +64,7 @@ public class BusCrossStation extends AppCompatActivity implements BusCrossStatio
             }
         });
         busCrossRecycle.setAdapter(busCrossStationAdapter);
-        presenter.getcross(Stationid,stopid,direceion);
+        presenter.getcross(Stationid,direceion);
 
 
     }

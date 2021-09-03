@@ -46,6 +46,7 @@ public class PTXService {
             }
         });
     }
+
     public void getRouteDataById(String routeid, DataCallback<List<RouteData>> callback) {
         requestRouteDataById("NewTaipei", routeid, new RequestCallback() {
             @Override
@@ -62,6 +63,24 @@ public class PTXService {
             }
         });
     }
+
+    public void getRouteDataByIdByList(List<String> routeids, DataCallback<List<RouteData>> callback) {
+        requestRouteDataByIdList("NewTaipei", routeids, new RequestCallback() {
+            @Override
+            public void onSuccess(String json) {
+                Gson gson = new Gson();
+                Type routeEntityTypeToken = TypeToken.getParameterized(List.class, RouteData.class).getType();
+                List<RouteData> result = gson.fromJson(json, routeEntityTypeToken);
+                callback.onSuccess(result);
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+                callback.onFailure(errorMessage);
+            }
+        });
+    }
+
     //預估時間
     public void getRouteTimeData(String routeID, DataCallback<List<RouteData>> callback) {
         requestRouteTimeDataByRouteID("NewTaipei", routeID, new RequestCallback() {
@@ -79,6 +98,24 @@ public class PTXService {
             }
         });
     }
+    public void getRouteTimeDataBylist(List<EstimateArrivalInfo> estimateArrivalInfoList, DataCallback<List<RouteData>> callback) {
+        requestRouteTimeDataByRouteIDByList("NewTaipei", estimateArrivalInfoList, new RequestCallback() {
+            @Override
+            public void onSuccess(String json) {
+                Gson gson = new Gson();
+                Type routeEntityTypeToken = TypeToken.getParameterized(List.class, RouteData.class).getType();
+                List<RouteData> result = gson.fromJson(json, routeEntityTypeToken);
+                callback.onSuccess(result);
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+                callback.onFailure(errorMessage);
+            }
+        });
+    }
+
+
     //站牌名順序
     public void getRouteSequenDataById(String routeId, DataCallback<List<RouteData>> callback) {
         requestRouteSequenDataByRouteID("NewTaipei", routeId, new RequestCallback() {
@@ -97,6 +134,7 @@ public class PTXService {
         });
 
     }
+
     //Station
     public void getRouteStationDataById(String stationId, DataCallback<List<RouteData>> callback) {
         requestRouteStationDataByRouteID("NewTaipei", stationId, new RequestCallback() {
@@ -115,6 +153,7 @@ public class PTXService {
         });
 
     }
+
     //以routeid抓發車時刻表
     public void getRouteStartTimeByRouteID(String routeId, DataCallback<List<RouteData>> callback) {
         requestRouteStartTimeByRouteID("NewTaipei", routeId, new RequestCallback() {
@@ -133,8 +172,9 @@ public class PTXService {
         });
 
     }
+
     public void getRoutePosition(double Latitude, double Longitude, DataCallback<List<RouteData>> callback) {
-        requestRoutePosition("NewTaipei", Latitude,Longitude, new RequestCallback() {
+        requestRoutePosition("NewTaipei", Latitude, Longitude, new RequestCallback() {
             @Override
             public void onSuccess(String json) {
                 Gson gson = new Gson();
@@ -153,40 +193,59 @@ public class PTXService {
 
     /***Url Generate***/
     //去網路抓資料，以現在位置抓附近站牌
-    private void requestRoutePosition(String city, double Latitude,double Longitude, RequestCallback callback) {
-        String filter = "nearby( " + Latitude+","+ Longitude+","+"1000"+ ")";
+    private void requestRoutePosition(String city, double Latitude, double Longitude, RequestCallback callback) {
+        String filter = "nearby( " + Latitude + "," + Longitude + "," + "1000" + ")";
         String url = "https://ptx.transportdata.tw/MOTC/v2/Bus/Station/City/" + city + "?$spatialFilter=" + filter + "&$format=JSON";
         request(url, callback);
     }
+
     //去網路抓資料，以routeid，抓發車時刻
     private void requestRouteStartTimeByRouteID(String city, String routeid, RequestCallback callback) {
         String filter = "RouteID eq " + "'" + routeid + "'";
         String url = "https://ptx.transportdata.tw/MOTC/v2/Bus/Schedule/City/" + city + "?$filter=" + filter + "&$format=JSON";
         request(url, callback);
     }
+
     //去網路抓資料，以routeid為搜尋的，抓station
     private void requestRouteStationDataByRouteID(String city, String stationId, RequestCallback callback) {
         String filter = "StationID eq " + "'" + stationId + "'";
         String url = "https://ptx.transportdata.tw/MOTC/v2/Bus/Station/City/" + city + "?$filter=" + filter + "&$format=JSON";
         request(url, callback);
     }
+
     //去網路抓資料，以routeid為搜尋的，抓時間
     private void requestRouteTimeDataByRouteID(String city, String routeID, RequestCallback callback) {
         String filter = "RouteID eq " + "'" + routeID + "'";
         String url = "https://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/City/" + city + "?$filter=" + filter + "&$format=JSON";
         request(url, callback);
     }
+    //去網路抓資料，以routeid為搜尋的，抓時間(用list)
+    private void requestRouteTimeDataByRouteIDByList(String city, List<EstimateArrivalInfo> estimateArrivalInfoList, RequestCallback callback) {
+        String filter = "";
+
+        for(int i = 0; i < estimateArrivalInfoList.size(); i++){
+            filter+="RouteID eq '"+estimateArrivalInfoList.get(i).routeId +"' and StopID eq '" +estimateArrivalInfoList.get(i).stopId+"'";
+            if (i != estimateArrivalInfoList.size() - 1) filter+=" or ";
+
+        }
+
+        String url = "https://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/City/" + city + "?$filter=" + filter + "&$format=JSON";
+        request(url, callback);
+    }
+
     //抓順序
     private void requestRouteSequenDataByRouteID(String city, String routeID, RequestCallback callback) {
         String filter = "RouteID eq " + "'" + routeID + "'";
         String url = "https://ptx.transportdata.tw/MOTC/v2/Bus/DisplayStopOfRoute/City/" + city + "?$filter=" + filter + "&$format=JSON";
         request(url, callback);
     }
+
     //去網路抓資料，以routename為搜尋的，抓路線名
     private void requestRouteDataByRouteName(String city, String routeName, RequestCallback callback) {
         String url = "https://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/" + city + "/" + routeName + "?$format=JSON";
         request(url, callback);
     }
+
     //以routeid，抓路線名
     private void requestRouteDataById(String city, String routeId, RequestCallback callback) {
         String filter = "RouteID eq " + "'" + routeId + "'";
@@ -194,6 +253,15 @@ public class PTXService {
         request(url, callback);
     }
 
+    private void requestRouteDataByIdList(String city, List<String> routeId, RequestCallback callback) {
+        StringBuilder filter = new StringBuilder();
+        for (int i = 0; i < routeId.size(); i++) {
+            filter.append("RouteID eq " + "'").append(routeId.get(i)).append("'");
+            if (i != routeId.size() - 1) filter.append(" or ");
+        }
+        String url = "https://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/" + city + "?$filter=" + filter + "&$format=JSON";
+        request(url, callback);
+    }
 
 
     /****Network Request*****/
@@ -206,7 +274,7 @@ public class PTXService {
     @SuppressLint("StaticFieldLeak")
     private static class RequestAsyncTask extends AsyncTask<String, Void, String> {
 
-        private  RequestCallback callback;
+        private RequestCallback callback;
         private final String apiUrl;
 
         public RequestAsyncTask(String apiUrl, RequestCallback callback) {
@@ -300,7 +368,7 @@ public class PTXService {
 
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            if(s.isEmpty()){
+            if (s.isEmpty()) {
                 callback.onFailure("can't receive data");
             } else {
                 callback.onSuccess(s);

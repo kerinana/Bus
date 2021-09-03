@@ -32,7 +32,7 @@ public class RouteData {
     StopName StopName;//路線名稱
     int EstimateTime;//預估時間
     int StopSequence;//站牌順序
-    int StopStatus;// 車輛狀態備註 : [0:'正常',1:'尚未發車',2:'交管不停靠',3:'末班車已過',4:'今日未營運']
+    int StopStatus =4;// 車輛狀態備註 : [0:'正常',1:'尚未發車',2:'交管不停靠',3:'末班車已過',4:'今日未營運']
     int Direction ;//去返程(該方向指的是此車牌車輛目前所在路線的去返程方向，非指站站牌所在路線的去返程方向，使用時請加值業者多加注意) : [0:'去程',1:'返程',2:'迴圈',255:'未知']
     String StopID;
     ServiceDay ServiceDay;

@@ -55,7 +55,7 @@ public class BusCrossStationAdapter extends RecyclerView.Adapter<BusCrossStation
         //判斷車子狀態
         if (routeitem.getStopStatus() == 0 ) {//狀態為正常
             //如果預估時間=0
-            if(routeitem.getEstimateTime() < 1){
+            if(routeitem.getEstimateTime()/60 < 1){
                 holder.realtime.setText("進站中");
             }
             else{
@@ -76,7 +76,7 @@ public class BusCrossStationAdapter extends RecyclerView.Adapter<BusCrossStation
         //holder.realtime.setText("" + routeitem.getEstimateTime() / 60 + "分");
         holder.stationname.setText((CharSequence) routeitem.getRouteName().getZhTw());
         if(routeitem.getDirection()==0)holder.goroute.setText("往" + (CharSequence) routeitem.getDestinationStopNameZh());
-        else holder.goroute.setText("往" + (CharSequence) routeitem.getDepartureStopNameZh());
+        else  holder.goroute.setText("往" + (CharSequence) routeitem.getDepartureStopNameZh());
     }
 
     @Override
